@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+</style>
+<title>EBF 2027 Wireframes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: greyscale low-fidelity wireframe, single 1120px column, redline-blue annotations sit beside the content they describe */
+:root {
+  --bg: #fafafa;
+  --surface: #ffffff;
+  --ink: #1c1e21;
+  --muted: #676c74;
+  --line: #c8cbd0;
+  --fill: #eceef1;
+  --fill-2: #dfe2e6;
+  --note: #2a56c6;
+  --note-bg: #eef2fc;
+  --font-sans: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17191c; --surface: #1f2226; --ink: #e6e8eb; --muted: #9aa0a8;
+    --line: #3d4248; --fill: #272b30; --fill-2: #30353b; --note: #7ea0ff; --note-bg: #1d2538;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #17191c; --surface: #1f2226; --ink: #e6e8eb; --muted: #9aa0a8;
+  --line: #3d4248; --fill: #272b30; --fill-2: #30353b; --note: #7ea0ff; --note-bg: #1d2538;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-sans); font-size: 15px; line-height: 1.55; }
+a { color: inherit; }
+h1, h2, h3 { line-height: 1.2; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(1.7rem, 4vw, 2.4rem); font-weight: 700; }
+h2 { font-size: 1.35rem; font-weight: 600; }
+h3 { font-size: 1.02rem; font-weight: 600; }
+p { margin: 0; max-width: 65ch; }
+.mono { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.02em; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+:focus-visible { outline: 2px solid var(--note); outline-offset: 2px; }
+
+/* Wireframe toolbar */
+.wf-bar { background: var(--note); color: #fff; font-family: var(--font-mono); font-size: 0.76rem; }
+.wf-bar .wrap { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; padding-block: 7px; }
+.wf-bar a { color: #fff; }
+.wf-bar .grow { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wf-bar .toggle { display: inline-flex; border: 1px solid rgba(255,255,255,.6); }
+.wf-bar .toggle button { background: transparent; color: #fff; border: 0; font: inherit; padding: 2px 9px; cursor: pointer; }
+.wf-bar .toggle button[aria-pressed="true"] { background: #fff; color: var(--note); }
+:root[data-theme="dark"] .wf-bar, :root[data-theme="dark"] .wf-bar a { color: #0d1430; }
+
+/* Site header */
+.site-header { background: var(--surface); border-bottom: 1px solid var(--line); }
+.site-header .wrap { display: flex; align-items: center; gap: 20px; padding-block: 14px; }
+.logo { display: inline-grid; place-items: center; width: 132px; height: 46px; border: 1.5px dashed var(--muted); font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); text-decoration: none; flex: none; }
+.nav { display: flex; gap: 4px; margin-left: auto; align-items: center; }
+.nav-item { position: relative; }
+.nav-item > a, .nav-item > button { display: inline-flex; gap: 6px; align-items: center; padding: 8px 12px; font: inherit; font-weight: 500; text-decoration: none; background: none; border: 0; color: var(--ink); cursor: pointer; }
+.nav-item > a:hover, .nav-item > button:hover { background: var(--fill); }
+.caret { width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid currentColor; }
+.sub { display: none; position: absolute; top: 100%; left: 0; z-index: 20; min-width: 230px; background: var(--surface); border: 1px solid var(--line); padding: 6px; box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+.sub a { display: block; padding: 7px 10px; text-decoration: none; }
+.sub a:hover { background: var(--fill); }
+.sub a.indent { padding-left: 24px; color: var(--muted); }
+.nav-item:hover .sub, .nav-item:focus-within .sub, .nav-item.open .sub { display: block; }
+.btn-tickets { margin-left: 8px; }
+.menu-btn { display: none; margin-left: auto; font: inherit; padding: 8px 12px; border: 1px solid var(--ink); background: none; color: var(--ink); cursor: pointer; }
+@media (max-width: 820px) {
+  .menu-btn { display: inline-block; }
+  .site-header .wrap { flex-wrap: wrap; }
+  .nav { display: none; flex-basis: 100%; flex-direction: column; align-items: stretch; margin-left: 0; gap: 0; border-top: 1px solid var(--line); padding-top: 8px; }
+  .nav.open { display: flex; }
+  .sub { display: block; position: static; box-shadow: none; border: 0; padding: 0 0 6px 12px; min-width: 0; }
+  .btn-tickets { margin: 8px 0 0; }
+}
+
+/* Generic blocks */
+main { padding-block: 28px 56px; }
+.stack { display: grid; gap: 40px; }
+.stack-s { display: grid; gap: 14px; }
+.crumbs { display: flex; flex-wrap: wrap; gap: 6px; color: var(--muted); font-size: 0.85rem; }
+.crumbs a { color: var(--muted); }
+.page-head { display: grid; gap: 12px; padding-bottom: 24px; border-bottom: 1px solid var(--line); }
+.lede { color: var(--muted); font-size: 1.05rem; }
+.ph { position: relative; min-height: var(--h, 160px); background-color: var(--fill); border: 1px solid var(--line);
+  background-image: linear-gradient(to top right, transparent calc(50% - 0.6px), var(--line) 50%, transparent calc(50% + 0.6px)),
+                    linear-gradient(to top left, transparent calc(50% - 0.6px), var(--line) 50%, transparent calc(50% + 0.6px));
+  display: grid; place-items: center; max-width: 100%; }
+.ph span { background: var(--fill); padding: 3px 8px; font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); text-align: center; }
+.note { border: 1px dashed var(--note); background: var(--note-bg); color: var(--note); padding: 10px 12px; font-size: 0.84rem; display: grid; gap: 4px; }
+.note b { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
+.note p { max-width: none; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 16px; font: inherit; font-weight: 600; text-decoration: none; border: 1.5px solid var(--ink); background: var(--surface); color: var(--ink); cursor: pointer; }
+.btn.primary { background: var(--ink); color: var(--bg); }
+.btn[aria-disabled="true"] { opacity: .45; pointer-events: none; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+.grid-2 { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+.split { display: grid; gap: 28px; grid-template-columns: minmax(0, 1fr) 340px; align-items: start; }
+@media (max-width: 880px) { .split { grid-template-columns: minmax(0, 1fr); } }
+.section-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px; }
+.card { display: grid; gap: 10px; align-content: start; text-decoration: none; }
+.card .meta { color: var(--muted); font-size: 0.85rem; }
+.chip { display: inline-block; font-family: var(--font-mono); font-size: 0.7rem; padding: 2px 7px; border: 1px solid var(--muted); color: var(--muted); }
+.chip.solid { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.panel { border: 1px solid var(--line); background: var(--surface); padding: 18px; display: grid; gap: 14px; }
+.band { background: var(--fill); border-block: 1px solid var(--line); }
+.band .wrap { padding-block: 32px; }
+.tile-link { border: 1px solid var(--line); background: var(--surface); padding: 16px; text-decoration: none; display: grid; gap: 6px; }
+.tile-link:hover { border-color: var(--ink); }
+.text-lines { display: grid; gap: 8px; }
+.text-lines i { display: block; height: 9px; background: var(--fill-2); }
+.list { display: grid; border-top: 1px solid var(--line); }
+.list > * { border-bottom: 1px solid var(--line); padding-block: 14px; }
+.list-row { display: grid; grid-template-columns: 130px minmax(0, 1fr) auto; gap: 14px; align-items: center; text-decoration: none; }
+@media (max-width: 600px) { .list-row { grid-template-columns: minmax(0, 1fr); gap: 4px; } }
+.filters { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr)); }
+label.f { display: grid; gap: 4px; font-size: 0.8rem; color: var(--muted); }
+select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); width: 100%; min-width: 0; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+.steps div { padding: 8px; border: 1px solid var(--line); font-size: 0.78rem; color: var(--muted); }
+.steps div.on { border-color: var(--ink); color: var(--ink); font-weight: 600; }
+.kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 14px; font-size: 0.9rem; }
+.kv dt { color: var(--muted); } .kv dd { margin: 0; }
+.faq details { border-bottom: 1px solid var(--line); padding-block: 12px; }
+.faq summary { cursor: pointer; font-weight: 600; }
+.stat { display: grid; gap: 2px; }
+.stat strong { font-size: 1.8rem; font-variant-numeric: tabular-nums; }
+.logos { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 120px), 1fr)); }
+.form-msg { font-size: 0.85rem; color: var(--note); }
+.empty { padding: 20px; border: 1px dashed var(--line); color: var(--muted); }
+
+/* Footer */
+.site-footer { background: var(--surface); border-top: 1px solid var(--line); }
+.site-footer .wrap { padding-block: 32px; display: grid; gap: 24px; }
+.foot-cols { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+.foot-cols a { display: block; padding: 2px 0; color: var(--muted); }
+.foot-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--line); padding-top: 16px; }
+
+/* Sitemap view */
+.tree ul { list-style: none; margin: 0; padding-left: 20px; border-left: 1px solid var(--line); }
+.tree > ul { padding-left: 0; border-left: 0; }
+.tree li { padding: 4px 0; }
+.tree a { text-decoration: none; }
+.tree a:hover { text-decoration: underline; }
+.tree .top > a { font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+
+<div class="wf-bar">
+  <div class="wrap">
+    <span>WIREFRAME v1</span>
+    <span class="grow" id="wf-page">Home</span>
+    <span class="toggle" id="mode-toggle" title="Home page mode">
+      <button type="button" data-mode="soon" aria-pressed="false">Coming soon</button>
+      <button type="button" data-mode="live" aria-pressed="true">Programme live</button>
+    </span>
+    <a href="#sitemap">Sitemap</a>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="logo" href="#home">NEW LOGO</a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" aria-label="Main"></nav>
+  </div>
+</header>
+
+<main id="app" class="wrap"></main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-cols">
+      <div class="stack-s">
+        <h3>Get the festival newsletter</h3>
+        <form class="stack-s js-form" id="foot-news">
+          <label class="f" for="foot-email">Email address<input id="foot-email" type="email" placeholder="name@example.com"></label>
+          <button class="btn primary" type="submit">Sign up</button>
+          <span class="form-msg" hidden>Wireframe only. Connect to the newsletter platform.</span>
+        </form>
+      </div>
+      <div><h3>Festival 2027</h3><a href="#programme">Programme</a><a href="#venues">Venues</a><a href="#faqs">FAQs</a><a href="#past">Past Festivals</a></div>
+      <div><h3>The charity</h3><a href="#about">About</a><a href="#get-involved">Get Involved</a><a href="#donate">Donate</a><a href="#contact">Contact</a></div>
+      <div><h3>Policies</h3><a href="#accessibility">Accessibility</a><a href="#privacy">Privacy Policy</a><a href="#cookies">Cookie Policy</a><a href="#safeguarding">Safeguarding Policy</a></div>
+    </div>
+    <div class="foot-base">
+      <span>Ealing Book Festival is a Charitable Incorporated Organisation registered with the Charity Commission in England and Wales (1205805).</span>
+      <span class="row"><span class="chip">Facebook</span><span class="chip">Instagram</span></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const NAV = [
+    { t: 'Festival 2027', h: 'festival', c: [
+      ['Programme', 'programme'], ['Authors & Speakers', 'authors', 1], ['Schools Programme', 'schools'],
+      ['Community Events', 'community'], ["Local Authors' Showcase", 'showcase'], ['Venues', 'venues'],
+      ['FAQs', 'faqs'], ['Past Festivals', 'past'] ] },
+    { t: 'About', h: 'about', c: [
+      ['Team & Trustees', 'team'], ['Partners & Sponsors', 'partners'], ['Become a Sponsor', 'sponsor', 1],
+      ['Charity Governance', 'governance'], ['Get Involved', 'get-involved'], ['Donate', 'donate', 1],
+      ['Volunteer', 'volunteer', 1], ['Open Roles', 'roles', 1] ] },
+    { t: 'News', h: 'news', c: [['Latest news', 'news'], ['Newsletter & Press Release Archive', 'archive']] },
+    { t: 'Contact', h: 'contact' }
+  ];
+
+  const EVENTS = [
+    { id: 1, title: 'Headline author in conversation', day: 'Tue 27 Apr', time: '19:30', venue: 'Venue A', genre: 'Fiction', age: 'Adult', route: 'ts', status: 'On sale', price: '£12, £10 concessions' },
+    { id: 2, title: 'History talk and book signing', day: 'Wed 28 Apr', time: '18:30', venue: 'Venue B', genre: 'History', age: 'Adult', route: 'ts', status: 'Few left', price: '£10' },
+    { id: 3, title: 'Panel: writing West London', day: 'Thu 29 Apr', time: '19:00', venue: 'Venue C', genre: 'Non-fiction', age: 'Adult', route: 'venue', status: 'On sale', price: '£14' },
+    { id: 4, title: 'Family story time', day: 'Sat 1 May', time: '10:30', venue: 'Venue A', genre: 'Children', age: 'Family', route: 'free-book', status: 'On sale', price: 'Free, booking required' },
+    { id: 5, title: 'Poetry open mic', day: 'Sat 1 May', time: '16:00', venue: 'Venue B', genre: 'Poetry', age: 'All ages', route: 'free', status: '', price: 'Free, no booking' },
+    { id: 6, title: 'Closing night event', day: 'Sun 2 May', time: '19:30', venue: 'Venue C', genre: 'Fiction', age: 'Adult', route: 'venue', status: 'On sale soon', onsale: '1 March 2027', price: '£16' },
+    { id: 7, title: 'Crime fiction double bill', day: 'Fri 30 Apr', time: '20:00', venue: 'Venue A', genre: 'Fiction', age: 'Adult', route: 'ts', status: 'Sold out', price: '£12' }
+  ];
+  const ROUTE = { ts: 'TicketSource', venue: 'Venue C box office (Spektrix)', free: 'Free, no booking', 'free-book': 'Free, book on TicketSource' };
+  const AUTHORS = [
+    { id: 1, name: 'Author name', role: 'Novelist', events: [1] },
+    { id: 2, name: 'Speaker name', role: 'Historian and broadcaster', events: [2] },
+    { id: 3, name: 'Author name', role: "Children's author and illustrator", events: [4] },
+    { id: 4, name: 'Panel chair name', role: 'Journalist', events: [3] }
+  ];
+  const VENUES = [
+    { n: 'Venue A', d: 'Main festival venue. Largest auditorium.', sells: 'TicketSource' },
+    { n: 'Venue B', d: 'Studio space for talks and workshops.', sells: 'TicketSource' },
+    { n: 'Venue C', d: 'Partner venue. Sells festival tickets through its own box office.', sells: 'Venue box office (Spektrix)' }
+  ];
+
+  let homeMode = 'live';
+
+  /* Helpers */
+  const ph = (label, h) => `<div class="ph" style="--h:${h || 160}px"><span>${label}</span></div>`;
+  const note = (t) => `<div class="note"><b>Note</b><p>${t}</p></div>`;
+  const lines = (n) => `<div class="text-lines">${Array.from({ length: n }, (_, i) => `<i style="width:${i === n - 1 ? 60 : 100}%"></i>`).join('')}</div>`;
+  const btn = (t, h, primary, disabled) => `<a class="btn${primary ? ' primary' : ''}" href="${h}"${disabled ? ' aria-disabled="true"' : ''}>${t}</a>`;
+  const crumbs = (arr) => `<nav class="crumbs" aria-label="Breadcrumb"><a href="#home">Home</a>${arr.map(([t, h]) => ` <span>/</span> ${h ? `<a href="#${h}">${t}</a>` : `<span>${t}</span>`}`).join('')}</nav>`;
+  const head = (title, lede, cr) => `<div class="page-head">${crumbs(cr || [])}<h1>${title}</h1>${lede ? `<p class="lede">${lede}</p>` : ''}</div>`;
+  const tiles = (items) => `<div class="grid">${items.map(([t, h, d]) => `<a class="tile-link" href="#${h}"><h3>${t}</h3>${d ? `<span class="meta">${d}</span>` : ''}</a>`).join('')}</div>`;
+  const newsletterForm = (id) => `<form class="stack-s js-form" id="${id}">
+      <label class="f" for="${id}-email">Email address<input id="${id}-email" type="email" placeholder="name@example.com"></label>
+      <button class="btn primary" type="submit">Sign up to the newsletter</button>
+      <span class="form-msg" hidden>Wireframe only. Connect to the newsletter platform.</span></form>`;
+
+  function bookLabel(e) {
+    if (e.route === 'free') return 'No booking needed';
+    if (e.status === 'Sold out') return 'Sold out';
+    if (e.status === 'On sale soon') return 'On sale ' + e.onsale;
+    return e.route === 'free-book' ? 'Book free tickets' : 'Book tickets';
+  }
+  function eventCard(e) {
+    const chip = e.status ? `<span class="chip${e.status === 'Few left' ? ' solid' : ''}">${e.status}</span>` : '';
+    return `<a class="card" href="#event-${e.id}">${ph('Event image 3:2', 150)}
+      <span class="mono">${e.day} · ${e.time} · ${e.venue}</span>
+      <h3>${e.title}</h3>
+      <span class="meta">${e.genre} · ${e.age} · ${e.price}</span>
+      <span class="row">${chip}<span class="chip">${ROUTE[e.route]}</span></span></a>`;
+  }
+  const authorCard = (a) => `<a class="card" href="#author-${a.id}">${ph('Author photo 1:1', 200)}<h3>${a.name}</h3><span class="meta">${a.role}</span></a>`;
+
+  /* Pages */
+  function home() {
+    const partners = `<section class="stack-s"><div class="section-head"><h2>Our partners</h2><a href="#partners">All partners</a></div>
+      <div class="logos">${Array.from({ length: 6 }, () => ph('Logo', 64)).join('')}</div></section>`;
+    const news = `<section class="stack-s"><div class="section-head"><h2>Latest news</h2><a href="#news">All news</a></div>
+      <div class="grid">${['Newsletter', 'Press release', 'Newsletter'].map((t, i) => `<a class="card" href="#${t === 'Press release' ? 'press-1' : 'newsletter-1'}">${ph('Image', 130)}<span class="chip">${t}</span><h3>News headline ${i + 1}</h3><span class="meta">Date</span></a>`).join('')}</div></section>`;
+    const strands = `<section class="stack-s"><h2>More than talks</h2>${tiles([
+      ['Schools Programme', 'schools', 'Schools week from Monday 19 April'], ['Community Events', 'community', 'Free events across Ealing'], ["Local Authors' Showcase", 'showcase', 'New local writing']])}</section>`;
+    if (homeMode === 'soon') {
+      return { title: 'Home (coming soon mode)', html: `<div class="stack">
+        ${note('Off-season mode. Editors switch the mode with one setting in WordPress. Hero, newsletter and 2026 highlights replace the programme blocks.')}
+        <section class="grid-2" style="align-items:center">
+          <div class="stack-s"><span class="mono">TUE 27 APRIL TO SUN 2 MAY 2027</span>
+            <h1>Ealing Book Festival returns in spring 2027</h1>
+            <p class="lede">Six days of author events, preceded by a week of schools and community events from Monday 19 April. The full programme and tickets go live in early 2027.</p>
+            <div class="row">${btn('Get programme alerts', '#news', true)}${btn('Look back at 2026', '#past-2026')}</div></div>
+          ${ph('Hero image or video loop', 320)}
+        </section>
+        <section class="band" style="margin-inline:calc(50% - 50vw)"><div class="wrap grid-2" style="align-items:center">
+          <div class="stack-s"><h2>Be first to hear when tickets go on sale</h2><p>Sign up for programme news and priority booking dates.</p></div>${newsletterForm('home-news')}</div></section>
+        <section class="stack-s"><h2>2026 in numbers</h2><div class="grid">
+          <div class="stat"><strong>1,250+</strong><span class="meta">pupils at schools events</span></div>
+          <div class="stat"><strong>70+</strong><span class="meta">authors applied for the Local Authors' Showcase</span></div>
+          <div class="stat"><strong>[n]</strong><span class="meta">events (to confirm)</span></div>
+          <div class="stat"><strong>[n]</strong><span class="meta">audience members (to confirm)</span></div></div>
+          <div class="grid">${Array.from({ length: 4 }, () => ph('2026 photo', 150)).join('')}</div></section>
+        ${news}
+        <section class="stack-s"><h2>Support the festival</h2>${tiles([['Donate', 'donate', 'Gift Aid adds 25p to every £1'], ['Volunteer', 'volunteer', 'Help at the 2027 festival'], ['Become a Sponsor', 'sponsor', 'Packages for local business']])}</section>
+        ${partners}</div>` };
+    }
+    return { title: 'Home (programme live mode)', html: `<div class="stack">
+      ${note('In-season mode. Featured events come from the Event post type with a "Featured" tick box.')}
+      <section class="grid-2" style="align-items:center">
+        <div class="stack-s"><span class="mono">TUE 27 APRIL TO SUN 2 MAY 2027</span>
+          <h1>The 2027 programme is live</h1>
+          <p class="lede">Bestselling authors, public figures and new local voices, across three venues in Ealing.</p>
+          <div class="row">${btn('See the programme', '#programme', true)}${btn('Plan your visit', '#venues')}</div></div>
+        ${ph('Hero image: headline author', 320)}
+      </section>
+      <section class="stack-s"><div class="section-head"><h2>Featured events</h2><a href="#programme">Full programme</a></div>
+        <div class="grid">${EVENTS.slice(0, 3).map(eventCard).join('')}</div></section>
+      <section class="stack-s"><div class="section-head"><h2>Authors & speakers</h2><a href="#authors">All authors</a></div>
+        <div class="grid">${AUTHORS.map(authorCard).join('')}</div></section>
+      ${strands}
+      <section class="band" style="margin-inline:calc(50% - 50vw)"><div class="wrap grid-2" style="align-items:center">
+        <div class="stack-s"><h2>Festival news in your inbox</h2><p>New events, sell-out warnings and author news.</p></div>${newsletterForm('home-news')}</div></section>
+      ${news}
+      ${partners}</div>` };
+  }
+
+  function festival() {
+    return { title: 'Festival 2027', html: `<div class="stack">${head('Festival 2027', 'Tuesday 27 April to Sunday 2 May 2027, with schools and community week from Monday 19 April.', [['Festival 2027']])}
+      ${note('Section landing page. The menu label "Festival 2027" changes each year. Last year\'s pages move to Past Festivals.')}
+      ${tiles([['Programme', 'programme', 'All events, filter by day, venue, genre and age'], ['Authors & Speakers', 'authors', 'Everyone appearing in 2027'],
+        ['Schools Programme', 'schools', 'For teachers and pupils'], ['Community Events', 'community', 'Free events across Ealing'],
+        ["Local Authors' Showcase", 'showcase', 'Apply or attend'], ['Venues', 'venues', 'Three venues, access and travel'],
+        ['FAQs', 'faqs', 'Tickets, refunds, access'], ['Past Festivals', 'past', '2024 to 2026']])}</div>` };
+  }
+
+  function programme() {
+    const opts = (k) => ['All', ...new Set(EVENTS.map((e) => e[k]))].map((v) => `<option>${v}</option>`).join('');
+    return { title: 'Programme', html: `<div class="stack">${head('Programme', 'All 2027 festival events. Use the filters to find events by day, venue, genre or age.', [['Festival 2027', 'festival'], ['Programme']])}
+      <div class="stack-s">
+        <div class="filters">
+          <label class="f" for="f-day">Day<select id="f-day" data-k="day">${opts('day')}</select></label>
+          <label class="f" for="f-venue">Venue<select id="f-venue" data-k="venue">${opts('venue')}</select></label>
+          <label class="f" for="f-genre">Genre<select id="f-genre" data-k="genre">${opts('genre')}</select></label>
+          <label class="f" for="f-age">Age<select id="f-age" data-k="age">${opts('age')}</select></label>
+          <label class="f" for="f-price">Price<select id="f-price" data-k="price"><option>All</option><option>Free</option><option>Ticketed</option></select></label>
+        </div>
+        ${note('Filters are working in this wireframe. In WordPress they map to taxonomies on the Event post type: Day, Venue, Genre, Age range, Free/Ticketed.')}
+      </div>
+      <div class="grid" id="prog-grid"></div>
+      <p class="empty" id="prog-empty" hidden>No events match these filters. Clear a filter to see more events.</p></div>`,
+      after() {
+        const run = () => {
+          const f = {}; document.querySelectorAll('.filters select').forEach((s) => (f[s.dataset.k] = s.value));
+          const list = EVENTS.filter((e) => ['day', 'venue', 'genre', 'age'].every((k) => f[k] === 'All' || e[k] === f[k]) &&
+            (f.price === 'All' || (f.price === 'Free') === e.route.startsWith('free')));
+          document.getElementById('prog-grid').innerHTML = list.map(eventCard).join('');
+          document.getElementById('prog-empty').hidden = list.length > 0;
+        };
+        document.querySelectorAll('.filters select').forEach((s) => s.addEventListener('change', run)); run();
+      } };
+  }
+
+  function bookingPanel(e, step) {
+    const steps = `<div class="steps"><div class="${step === 1 ? 'on' : ''}">1. Choose</div><div class="${step === 2 ? 'on' : ''}">2. Check details</div><div>3. Pay on ${e.route === 'venue' ? 'venue site' : 'TicketSource'}</div></div>`;
+    if (e.route === 'free') {
+      return `<aside class="panel"><h3>Free event</h3><p>No booking needed. Entry is first come, first served. Arrive 15 minutes early.</p>${note('Booking route: Free, no booking. The panel hides the steps and the button.')}</aside>`;
+    }
+    if (e.status === 'On sale soon') {
+      return `<aside class="panel"><h3>Tickets on sale ${e.onsale}</h3><p>${e.price}. Sign up to the newsletter for an on-sale reminder.</p>${btn('Get a reminder', '#news')}${note('Status "On sale soon". The on-sale date field shows here. The button changes to "Book tickets" on that date.')}</aside>`;
+    }
+    if (e.status === 'Sold out') {
+      return `<aside class="panel"><h3>Sold out</h3><p>Returns may become available on TicketSource. Check again closer to the date.</p>${btn('Sold out', '#', true, true)}</aside>`;
+    }
+    if (step === 1) {
+      return `<aside class="panel">${steps}<h3>Book tickets</h3>
+        <dl class="kv"><dt>Date</dt><dd>${e.day} 2027</dd><dt>Time</dt><dd>${e.time}</dd><dt>Venue</dt><dd>${e.venue}</dd><dt>Price</dt><dd>${e.price}</dd><dt>Sold by</dt><dd>${ROUTE[e.route]}</dd></dl>
+        ${btn('Continue', `#event-${e.id}-book`, true)}
+        ${note('Step 1 sits on every event page. Fields: booking route, booking URL, status, on-sale date.')}</aside>`;
+    }
+    return '';
+  }
+
+  function eventPage(e) {
+    const auths = AUTHORS.filter((a) => a.events.includes(e.id));
+    return { title: 'Event: ' + e.title, html: `<div class="stack">${head(e.title, `${e.day} 2027 · ${e.time} · ${e.venue}`, [['Festival 2027', 'festival'], ['Programme', 'programme'], [e.title]])}
+      <div class="split">
+        <div class="stack">
+          ${ph('Event image 16:9', 340)}
+          <div class="row"><span class="chip">${e.genre}</span><span class="chip">${e.age}</span><span class="chip">${e.price}</span></div>
+          <div class="stack-s"><h2>About this event</h2>${lines(6)}</div>
+          <div class="stack-s"><h2>Appearing</h2><div class="grid">${(auths.length ? auths : AUTHORS.slice(0, 1)).map(authorCard).join('')}</div></div>
+          <div class="stack-s"><h2>Venue and access</h2><dl class="kv"><dt>Venue</dt><dd><a href="#venues">${e.venue}</a></dd><dt>Access</dt><dd>Step-free access, hearing loop (to confirm per venue)</dd><dt>Duration</dt><dd>60 minutes</dd></dl></div>
+          <div class="stack-s"><h2>Books on sale</h2><p>Signed copies from the festival bookshop partner at the event.</p></div>
+        </div>
+        ${bookingPanel(e, 1)}
+      </div>
+      <section class="stack-s"><h2>You might also like</h2><div class="grid">${EVENTS.filter((x) => x.id !== e.id).slice(0, 3).map(eventCard).join('')}</div></section></div>` };
+  }
+
+  function bookStep(e) {
+    const venue = e.route === 'venue';
+    const target = venue ? 'Venue C website' : 'TicketSource';
+    return { title: 'Booking step: ' + e.title, html: `<div class="stack">${head('Check your booking details', e.title, [['Festival 2027', 'festival'], ['Programme', 'programme'], [e.title, 'event-' + e.id], ['Booking']])}
+      <div class="split">
+        <div class="stack">
+          <div class="steps"><div>1. Choose</div><div class="on">2. Check details</div><div>3. Pay on ${venue ? 'venue site' : 'TicketSource'}</div></div>
+          <section class="panel"><h2>${e.title}</h2><dl class="kv"><dt>Date</dt><dd>${e.day} 2027, ${e.time}</dd><dt>Venue</dt><dd>${e.venue}</dd><dt>Price</dt><dd>${e.price}</dd><dt>Age guidance</dt><dd>${e.age}</dd></dl></section>
+          <section class="stack-s"><h2>Before you continue</h2>
+            <p>${venue ? `${e.venue} sells tickets for this event through its own box office. You will go to the ${e.venue} website to choose seats and pay. The venue's booking fees and refund policy apply.` :
+              'You will go to TicketSource to choose tickets and pay. TicketSource sends your e-ticket by email. Festival booking fees and refund policy apply.'}</p>
+            <p>Need a wheelchair space or a companion ticket? ${venue ? 'Contact the venue box office before you book.' : 'Contact the festival before you book.'}</p></section>
+          <div class="row">${btn('Continue to ' + target, '#event-' + e.id + '-book', true)}${btn('Back to event', '#event-' + e.id)}</div>
+          ${note(`Step 2. Button opens the booking URL in the same tab. ${venue ? 'Route: Venue box office. Use the Spektrix Event Availability deep link from the venue.' : 'Route: TicketSource. Use the direct event booking URL from TicketSource.'}`)}
+        </div>
+        <aside class="panel"><h3>Booking help</h3><p>Read the FAQs for refunds, concessions and group bookings.</p>${btn('Read the FAQs', '#faqs')}</aside>
+      </div></div>` };
+  }
+
+  function authors() {
+    return { title: 'Authors & Speakers', html: `<div class="stack">${head('Authors & Speakers', 'Everyone appearing at Ealing Book Festival 2027.', [['Festival 2027', 'festival'], ['Programme', 'programme'], ['Authors & Speakers']])}
+      <div class="row"><label class="f" for="a-sort" style="max-width:220px">Sort<select id="a-sort"><option>A to Z</option><option>By event date</option></select></label></div>
+      <div class="grid">${AUTHORS.concat(AUTHORS).map((a, i) => authorCard(Object.assign({}, a, { id: (i % 4) + 1 }))).join('')}</div>
+      ${note('Author post type. Each author links to one or more events. The list is sorted A to Z by surname.')}</div>` };
+  }
+
+  function authorPage(a) {
+    return { title: 'Author: ' + a.name, html: `<div class="stack">${head(a.name, a.role, [['Festival 2027', 'festival'], ['Authors & Speakers', 'authors'], [a.name]])}
+      <div class="split">
+        <div class="stack"><div class="stack-s"><h2>Biography</h2>${lines(7)}</div>
+          <div class="stack-s"><h2>Latest books</h2><div class="grid">${Array.from({ length: 3 }, (_, i) => `<div class="card">${ph('Book cover', 190)}<h3>Book title ${i + 1}</h3></div>`).join('')}</div></div></div>
+        <aside class="stack-s">${ph('Author photo 1:1', 300)}<span class="meta">Photo credit</span>
+          <div class="row"><span class="chip">Website</span><span class="chip">Instagram</span></div></aside>
+      </div>
+      <section class="stack-s"><h2>At the festival</h2><div class="grid">${EVENTS.filter((e) => a.events.includes(e.id)).map(eventCard).join('')}</div></section></div>` };
+  }
+
+  const simple = (title, lede, cr, body) => ({ title, html: `<div class="stack">${head(title, lede, cr)}${body}</div>` });
+
+  function schools() {
+    return simple('Schools Programme', 'Author visits and events for primary and secondary schools, Monday 19 to Friday 23 April 2027.', [['Festival 2027', 'festival'], ['Schools Programme']],
+      `<div class="split"><div class="stack">${ph('Photo: pupils at an author event', 300)}
+        <div class="stack-s"><h2>What we offer</h2>${lines(5)}</div>
+        <div class="stack-s"><h2>Events for schools</h2><div class="list">${['Primary: Years 3 to 6', 'Secondary: Years 7 to 9', 'Writing workshop'].map((t) => `<div class="list-row"><span class="mono">Mon 19 Apr</span><span>${t}</span><span class="chip">Free</span></div>`).join('')}</div></div>
+        <div class="stack-s"><h2>Safeguarding</h2><p>All schools events follow our <a href="#safeguarding">Safeguarding Policy</a>.</p></div></div>
+        <aside class="panel"><h3>Book a school place</h3><p>Teachers apply with the form. We confirm places by email.</p>
+          <form class="stack-s js-form" id="school-form"><label class="f" for="s-school">School name<input id="s-school"></label><label class="f" for="s-email">Teacher email<input id="s-email" type="email"></label><label class="f" for="s-year">Year group<select id="s-year"><option>Year 3</option><option>Year 4</option><option>Year 5</option><option>Year 6</option><option>Year 7 to 9</option></select></label><button class="btn primary" type="submit">Apply for a place</button><span class="form-msg" hidden>Wireframe only. Connect to a form plugin.</span></form>
+          ${note('Archives with the year. In 2028 this page moves to Past Festivals > 2027.')}</aside></div>`);
+  }
+
+  function community() {
+    return simple('Community Events', 'Free events in libraries, community centres and open spaces during festival week.', [['Festival 2027', 'festival'], ['Community Events']],
+      `${note('Uses the Event post type with the category "Community". The same filters as the Programme can apply.')}
+       <div class="grid">${EVENTS.filter((e) => e.route.startsWith('free')).concat(EVENTS.filter((e) => e.route.startsWith('free'))).map(eventCard).join('')}</div>`);
+  }
+
+  function showcase() {
+    return simple("Local Authors' Showcase", 'A stage for authors who live or work in Ealing. In 2026, more than 70 authors applied.', [['Festival 2027', 'festival'], ["Local Authors' Showcase"]],
+      `<div class="split"><div class="stack">${ph('Photo: showcase event', 280)}
+        <div class="stack-s"><h2>How it works</h2>${lines(4)}</div>
+        <div class="stack-s"><h2>2027 showcase authors</h2><div class="grid">${AUTHORS.slice(0, 4).map(authorCard).join('')}</div></div></div>
+        <aside class="panel"><h3>Applications</h3><dl class="kv"><dt>Opens</dt><dd>[date]</dd><dt>Closes</dt><dd>[date]</dd></dl>${btn('Apply now', '#showcase', true)}
+          ${note('Two states: "Applications open" with the form link, and "Meet the authors" once the line-up is set.')}</aside></div>`);
+  }
+
+  function venues() {
+    return simple('Venues', 'The 2027 festival takes place at three venues in Ealing.', [['Festival 2027', 'festival'], ['Venues']],
+      `<div class="stack">${VENUES.map((v) => `<section class="grid-2"><div>${ph('Venue photo', 240)}</div><div class="stack-s"><h2>${v.n}</h2><p>${v.d}</p>
+        <dl class="kv"><dt>Address</dt><dd>[Street, Ealing, W5 postcode]</dd><dt>Tickets</dt><dd>${v.sells}</dd><dt>Transport</dt><dd>Nearest station, bus routes, parking</dd><dt>Access</dt><dd>Step-free entry, accessible toilets, hearing loop</dd></dl>
+        <div class="row">${btn('Events at ' + v.n, '#programme')}<span class="chip">Map link</span></div></div></section>`).join('')}
+        ${note('One page for all three venues. Each block is a Venue post, so event pages can link to it. Map is a link out, not an embedded map.')}</div>`);
+  }
+
+  function faqs() {
+    const groups = { 'Tickets and booking': ['How do I book tickets?', 'Why do some events go to a venue website?', 'Can I get a refund?', 'Are there concessions?'],
+      'At the festival': ['What time should I arrive?', 'Can I buy books at events?', 'Are events suitable for children?'],
+      'Access': ['Which venues have step-free access?', 'How do I book a wheelchair space or companion ticket?'] };
+    return simple('FAQs', 'Answers to common questions about tickets, venues and access.', [['Festival 2027', 'festival'], ['FAQs']],
+      `<div class="stack">${Object.entries(groups).map(([g, qs]) => `<section class="stack-s faq"><h2>${g}</h2><div>${qs.map((q) => `<details><summary>${q}</summary><div style="padding-top:8px">${lines(3)}</div></details>`).join('')}</div></section>`).join('')}
+      <div class="panel"><h3>Still have a question?</h3>${btn('Contact us', '#contact')}</div></div>`);
+  }
+
+  function past() {
+    return simple('Past Festivals', 'Programmes, highlights and photos from earlier festivals.', [['Festival 2027', 'festival'], ['Past Festivals']],
+      `<div class="grid">${[2026, 2025, 2024].map((y) => `<a class="card" href="#past-${y}">${ph(y + ' photo', 180)}<h3>Ealing Book Festival ${y}</h3><span class="meta">Programme, summary, gallery</span></a>`).join('')}</div>
+       ${note('Archive pages come from the "Festival edition" taxonomy. Each event and author keeps its year tag.')}`);
+  }
+
+  function pastYear(y) {
+    const summary = y === '2026' ? 'Our most successful festival so far. Over 1,250 pupils took part in schools events, and more than 70 authors applied for the Local Authors\' Showcase.' : 'Summary of the ' + y + ' festival.';
+    return simple('Ealing Book Festival ' + y, summary, [['Festival 2027', 'festival'], ['Past Festivals', 'past'], [y]],
+      `<section class="stack-s"><h2>Summary</h2>${lines(4)}</section>
+       <section class="stack-s"><h2>Gallery</h2><div class="grid">${Array.from({ length: 8 }, () => ph('Photo', 150)).join('')}</div>${note('Gallery opens a lightbox. Store photo credits in the image caption field.')}</section>
+       <section class="stack-s"><h2>Programme</h2><div class="list">${EVENTS.slice(0, 5).map((e) => `<div class="list-row"><span class="mono">${e.day}</span><span>${e.title}<br><span class="meta">${e.venue}</span></span><span class="chip">${e.genre}</span></div>`).join('')}</div>
+       ${note('Archived events show no booking panel. Event pages stay live for search engines.')}</section>`);
+  }
+
+  function about() {
+    return simple('About', 'Ealing Book Festival is a charity that celebrates books and reading in West London.', [['About']],
+      `<div class="grid-2"><div class="stack-s"><h2>Our history</h2>${lines(6)}</div>${ph('Photo', 260)}</div>
+       <section class="stack-s"><h2>Our impact</h2><div class="grid">
+         <div class="stat"><strong>1,250+</strong><span class="meta">pupils at 2026 schools events</span></div>
+         <div class="stat"><strong>70+</strong><span class="meta">Showcase applications in 2026</span></div>
+         <div class="stat"><strong>4th</strong><span class="meta">festival in 2027</span></div></div>${lines(3)}</section>
+       <section class="stack-s"><h2>More about us</h2>${tiles([['Team & Trustees', 'team'], ['Partners & Sponsors', 'partners'], ['Charity Governance', 'governance'], ['Get Involved', 'get-involved']])}</section>`);
+  }
+
+  function team() {
+    const grp = (t, n) => `<section class="stack-s"><h2>${t}</h2><div class="grid">${Array.from({ length: n }, (_, i) => `<div class="card">${ph('Photo', 180)}<h3>Name ${i + 1}</h3><span class="meta">Role</span></div>`).join('')}</div></section>`;
+    return simple('Team & Trustees', 'The people who run the festival.', [['About', 'about'], ['Team & Trustees']], grp('Festival team', 4) + grp('Board of trustees', 6) + note('Person post type with a "Group" field: Team or Trustee. Optional short bio opens in a panel.'));
+  }
+
+  function partners() {
+    const tier = (t, n, h) => `<section class="stack-s"><h2>${t}</h2><div class="logos" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,${h * 2.2}px),1fr))">${Array.from({ length: n }, () => ph('Logo', h)).join('')}</div></section>`;
+    return simple('Partners & Sponsors', 'The organisations that make the festival possible.', [['About', 'about'], ['Partners & Sponsors']],
+      tier('Headline partners', 2, 110) + tier('Supporters', 4, 80) + tier('Community partners', 8, 60) +
+      `<div class="panel grid-2" style="align-items:center"><div class="stack-s"><h3>Partner with us</h3><p>Reach readers across West London.</p></div><div>${btn('Become a Sponsor', '#sponsor', true)}</div></div>`);
+  }
+
+  function sponsor() {
+    return simple('Become a Sponsor', 'Sponsorship packages for local and national businesses.', [['About', 'about'], ['Partners & Sponsors', 'partners'], ['Become a Sponsor']],
+      `<div class="grid">${['Headline partner', 'Event sponsor', 'Schools programme sponsor'].map((t) => `<div class="panel"><h3>${t}</h3>${lines(3)}<span class="mono">From £[amount]</span></div>`).join('')}</div>
+       <div class="grid-2"><div class="stack-s"><h2>Why sponsor</h2>${lines(4)}</div><div class="panel"><h3>Request the sponsorship pack</h3>${btn('Email the team', '#contact', true)}</div></div>`);
+  }
+
+  function governance() {
+    return simple('Charity Governance', 'Ealing Book Festival is a Charitable Incorporated Organisation, registered charity number 1205805.', [['About', 'about'], ['Charity Governance']],
+      `<div class="list">${['Constitution', 'Annual report and accounts 2025', 'Safeguarding Policy', 'Equality and Diversity Policy'].map((t) => `<div class="list-row"><span class="mono">PDF</span><span>${t}</span><span class="chip">Download</span></div>`).join('')}</div>
+       ${note('Link to the charity record on the Charity Commission register.')}`);
+  }
+
+  function getInvolved() {
+    return simple('Get Involved', 'Help us bring books and readers together.', [['About', 'about'], ['Get Involved']],
+      `<div class="grid">${[['Donate', 'donate', 'One-off or monthly gifts. Add Gift Aid.'], ['Volunteer', 'volunteer', 'Stewards, front of house, schools week.'], ['Open Roles', 'roles', 'Paid and voluntary positions.']].map(([t, h, d]) => `<a class="card" href="#${h}">${ph(t, 160)}<h3>${t}</h3><span class="meta">${d}</span></a>`).join('')}</div>`);
+  }
+
+  function donate() {
+    return simple('Donate', 'Your gift pays for free schools events and the Local Authors\' Showcase.', [['About', 'about'], ['Get Involved', 'get-involved'], ['Donate']],
+      `<div class="split"><div class="stack">
+        <section class="stack-s"><h2>Ways to donate</h2><div class="list">${[['Online', 'One-off or monthly, by card'], ['At events', 'Contactless points at each venue'], ['When you book', 'Add a donation on TicketSource'], ['Leave a gift', 'A gift in your will']].map(([a, b]) => `<div class="list-row"><strong>${a}</strong><span>${b}</span><span></span></div>`).join('')}</div></section>
+        <section class="stack-s"><h2>Gift Aid</h2><p>If you are a UK taxpayer, Gift Aid lets us claim an extra 25p for every £1 you give, at no cost to you.</p>${note('Show the official Gift Aid declaration wording on the donation platform. Confirm text with HMRC guidance.')}</section></div>
+        <aside class="panel"><h3>Make a donation</h3><div class="row">${['£10', '£25', '£50', 'Other'].map((v) => `<span class="btn">${v}</span>`).join('')}</div>${btn('Donate now', '#donate', true)}
+          ${note('Button links to the external donation platform. Do not take card details on this site.')}</aside></div>`);
+  }
+
+  function volunteer() {
+    return simple('Volunteer', 'Join the volunteer team for the 2027 festival.', [['About', 'about'], ['Get Involved', 'get-involved'], ['Volunteer']],
+      `<div class="split"><div class="stack">${ph('Photo: volunteers', 260)}<section class="stack-s"><h2>Roles</h2><div class="list">${['Event steward', 'Front of house', 'Schools week helper', 'Social media and photography'].map((t) => `<div class="list-row"><strong>${t}</strong><span class="meta">Short description</span><span></span></div>`).join('')}</div></section></div>
+        <aside class="panel"><h3>Register your interest</h3><form class="stack-s js-form" id="vol-form"><label class="f" for="v-name">Name<input id="v-name"></label><label class="f" for="v-email">Email<input id="v-email" type="email"></label><button class="btn primary" type="submit">Register interest</button><span class="form-msg" hidden>Wireframe only. Connect to a form plugin.</span></form></aside></div>`);
+  }
+
+  function roles() {
+    return simple('Open Roles', 'Current paid and voluntary positions.', [['About', 'about'], ['Get Involved', 'get-involved'], ['Open Roles']],
+      `<div class="list">${[['Festival Producer', 'Part-time, fixed term'], ['Trustee: Finance', 'Voluntary']].map(([t, d]) => `<div class="list-row"><span class="mono">Closes [date]</span><span><strong>${t}</strong><br><span class="meta">${d}</span></span><span class="chip">Role pack PDF</span></div>`).join('')}</div>
+       <p class="empty">When no roles are open, this message shows: "We have no open roles right now. Sign up to the newsletter to hear about new roles."</p>`);
+  }
+
+  function news() {
+    return simple('News', 'Festival newsletters and press releases.', [['News']],
+      `<div class="split"><div class="stack-s"><div class="row"><span class="chip solid">All</span><span class="chip">Newsletters</span><span class="chip">Press releases</span></div>
+        <div class="list">${[['Newsletter', 'newsletter-1'], ['Press release', 'press-1'], ['Newsletter', 'newsletter-1'], ['Press release', 'press-1']].map(([t, h], i) => `<a class="list-row" href="#${h}"><span class="mono">[Date]</span><span><strong>News headline ${i + 1}</strong><br><span class="meta">Short summary line</span></span><span class="chip">${t}</span></a>`).join('')}</div>
+        ${btn('Newsletter & Press Release Archive', '#archive')}</div>
+        <aside class="panel"><h3>Sign up to the newsletter</h3>${newsletterForm('news-news')}${note('Standard WordPress posts with two categories: Newsletter and Press Release.')}</aside></div>`);
+  }
+
+  function article(type) {
+    const isPress = type === 'press';
+    return simple(isPress ? 'Press release headline' : 'Newsletter headline', '[Date]', [['News', 'news'], [isPress ? 'Press release' : 'Newsletter']],
+      `<div class="split"><article class="stack-s"><span class="chip">${isPress ? 'Press release' : 'Newsletter'}</span>${ph('Lead image', 300)}${lines(8)}${lines(5)}
+        ${isPress ? `<div class="panel"><h3>Media contact</h3><p>Name, press@[domain]. Press images available on request.</p></div>` : ''}</article>
+        <aside class="stack-s"><div class="panel"><h3>Newsletter</h3>${newsletterForm('art-news')}</div>${btn('Back to News', '#news')}</aside></div>`);
+  }
+
+  function archive() {
+    const years = ['2026', '2025', '2024'];
+    return simple('Newsletter & Press Release Archive', 'Older newsletters and press releases by year.', [['News', 'news'], ['Archive']],
+      years.map((y) => `<section class="stack-s"><h2>${y}</h2><div class="list">${['Newsletter', 'Press release', 'Newsletter'].map((t, i) => `<a class="list-row" href="#${t === 'Newsletter' ? 'newsletter-1' : 'press-1'}"><span class="mono">[Date]</span><span>${t} headline ${i + 1}</span><span class="chip">${t}</span></a>`).join('')}</div></section>`).join(''));
+  }
+
+  function contact() {
+    return simple('Contact', 'Get in touch with the festival team.', [['Contact']],
+      `<div class="grid-2"><section class="stack-s"><h2>Email us</h2><dl class="kv"><dt>General</dt><dd>info@[domain]</dd><dt>Box office help</dt><dd>tickets@[domain]</dd><dt>Schools</dt><dd>schools@[domain]</dd><dt>Press</dt><dd>press@[domain]</dd><dt>Sponsorship</dt><dd>partners@[domain]</dd></dl>
+        ${note('Show addresses as text. For Venue C tickets, refer people to the venue box office.')}</section>
+        <section class="panel"><h3>Send a message</h3><form class="stack-s js-form" id="contact-form"><label class="f" for="c-name">Name<input id="c-name"></label><label class="f" for="c-email">Email<input id="c-email" type="email"></label><label class="f" for="c-topic">Topic<select id="c-topic"><option>General</option><option>Tickets</option><option>Schools</option><option>Press</option><option>Sponsorship</option></select></label><label class="f" for="c-msg">Message<textarea id="c-msg" rows="5"></textarea></label><button class="btn primary" type="submit">Send message</button><span class="form-msg" hidden>Wireframe only. Connect to a form plugin with spam protection.</span></form></section></div>`);
+  }
+
+  const policy = (t) => simple(t, 'Last updated [date].', [[t]], `<div class="stack-s">${lines(6)}${lines(5)}${lines(4)}</div>`);
+
+  function sitemap() {
+    const li = (t, h, kids) => `<li><a href="#${h}">${t}</a>${kids ? `<ul>${kids}</ul>` : ''}</li>`;
+    const tree = `<ul>
+      <li class="top"><a href="#home">Home</a> <span class="meta">(coming soon / programme live)</span></li>
+      <li class="top"><a href="#festival">Festival 2027</a><ul>
+        ${li('Programme', 'programme', li('[Event page]', 'event-1', li('Booking step', 'event-1-book')) + li('Authors & Speakers', 'authors', li('[Author bio page]', 'author-1')))}
+        ${li('Schools Programme', 'schools')}${li('Community Events', 'community')}${li("Local Authors' Showcase", 'showcase')}${li('Venues', 'venues')}${li('FAQs', 'faqs')}
+        ${li('Past Festivals', 'past', li('2026', 'past-2026') + li('2025', 'past-2025') + li('2024', 'past-2024'))}</ul></li>
+      <li class="top"><a href="#about">About</a><ul>
+        ${li('Team & Trustees', 'team')}${li('Partners & Sponsors', 'partners', li('Become a Sponsor', 'sponsor'))}${li('Charity Governance', 'governance')}
+        ${li('Get Involved', 'get-involved', li('Donate', 'donate') + li('Volunteer', 'volunteer') + li('Open Roles', 'roles'))}</ul></li>
+      <li class="top"><a href="#news">News</a><ul>${li('[Newsletter]', 'newsletter-1')}${li('[Press Release]', 'press-1')}${li('Newsletter & Press Release Archive', 'archive')}</ul></li>
+      <li class="top"><a href="#contact">Contact</a></li>
+      <li class="top"><span>Footer</span><ul>${li('Accessibility', 'accessibility')}${li('Privacy Policy', 'privacy')}${li('Cookie Policy', 'cookies')}${li('Safeguarding Policy', 'safeguarding')}</ul></li></ul>`;
+    return simple('Sitemap', 'Every page in this wireframe. Select a page to open it.', [['Sitemap']], `<div class="tree">${tree}</div>
+      ${note('Event examples: 1 TicketSource, 3 venue box office, 5 free no booking, 6 on sale soon, 7 sold out.')}
+      <div class="row">${[1, 3, 5, 6, 7].map((i) => btn('Event ' + i, '#event-' + i)).join('')}</div>`);
+  }
+
+  const STATIC = { home, festival, programme, authors, schools, community, showcase, venues, faqs, past, about, team, partners, sponsor, governance,
+    'get-involved': getInvolved, donate, volunteer, roles, news, archive, contact, sitemap,
+    'newsletter-1': () => article('news'), 'press-1': () => article('press'),
+    accessibility: () => policy('Accessibility'), privacy: () => policy('Privacy Policy'), cookies: () => policy('Cookie Policy'), safeguarding: () => policy('Safeguarding Policy') };
+
+  function resolve(key) {
+    if (STATIC[key]) return STATIC[key]();
+    let m;
+    if ((m = key.match(/^event-(\d+)-book$/))) { const e = EVENTS.find((x) => x.id === +m[1]); if (e) return bookStep(e); }
+    if ((m = key.match(/^event-(\d+)$/))) { const e = EVENTS.find((x) => x.id === +m[1]); if (e) return eventPage(e); }
+    if ((m = key.match(/^author-(\d+)$/))) { const a = AUTHORS.find((x) => x.id === +m[1]); if (a) return authorPage(a); }
+    if ((m = key.match(/^past-(2024|2025|2026)$/))) return pastYear(m[1]);
+    return home();
+  }
+
+  /* Nav */
+  const navEl = document.getElementById('nav');
+  navEl.innerHTML = NAV.map((n) => n.c
+    ? `<div class="nav-item"><button type="button" aria-haspopup="true">${n.t}<span class="caret"></span></button><div class="sub"><a href="#${n.h}"><strong>${n.t} overview</strong></a>${n.c.map(([t, h, ind]) => `<a href="#${h}"${ind ? ' class="indent"' : ''}>${t}</a>`).join('')}</div></div>`
+    : `<div class="nav-item"><a href="#${n.h}">${n.t}</a></div>`).join('') + `<a class="btn primary btn-tickets" href="#programme">Book tickets</a>`;
+  navEl.querySelectorAll('.nav-item > button').forEach((b) => b.addEventListener('click', () => {
+    const item = b.parentElement; const was = item.classList.contains('open');
+    navEl.querySelectorAll('.nav-item.open').forEach((i) => i.classList.remove('open'));
+    if (!was) item.classList.add('open');
+  }));
+  const menuBtn = document.getElementById('menu-btn');
+  menuBtn.addEventListener('click', () => { const o = navEl.classList.toggle('open'); menuBtn.setAttribute('aria-expanded', o); });
+
+  /* Forms */
+  document.addEventListener('submit', (ev) => {
+    const f = ev.target.closest('.js-form'); if (!f) return;
+    ev.preventDefault(); const msg = f.querySelector('.form-msg'); if (msg) msg.hidden = false;
+  });
+
+  /* Mode toggle */
+  document.querySelectorAll('#mode-toggle button').forEach((b) => b.addEventListener('click', () => {
+    homeMode = b.dataset.mode;
+    try { localStorage.setItem('ebf-mode', homeMode); } catch (e) {}
+    document.querySelectorAll('#mode-toggle button').forEach((x) => x.setAttribute('aria-pressed', x === b));
+    if (!location.hash || location.hash === '#home') render(); else location.hash = 'home';
+  }));
+  try { const m = localStorage.getItem('ebf-mode'); if (m === 'soon' || m === 'live') { homeMode = m; document.querySelectorAll('#mode-toggle button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.mode === m)); } } catch (e) {}
+
+  /* Router */
+  const app = document.getElementById('app');
+  function render() {
+    const key = (location.hash || '#home').slice(1);
+    const page = resolve(key);
+    app.innerHTML = page.html;
+    document.getElementById('wf-page').textContent = 'Page: ' + page.title;
+    if (page.after) page.after();
+    navEl.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false');
+    navEl.querySelectorAll('.nav-item.open').forEach((i) => i.classList.remove('open'));
+    if (document.activeElement && navEl.contains(document.activeElement)) document.activeElement.blur();
+    window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', render);
+  render();
+})();
+</script>
+
+</body>
+</html>
