@@ -177,7 +177,10 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
 .news-links a { display: grid; gap: 2px; padding-block: 10px; border-bottom: 1px solid var(--line); text-decoration: none; }
 .news-links a:hover strong { text-decoration: underline; }
 .carousel { border: 1px solid var(--line); background: var(--surface); padding: 14px; display: grid; gap: 12px; }
-.car-track { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.car-track { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.fe-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(240px, calc((100% - 54px) / 4)); gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; }
+.fe-track > * { scroll-snap-align: start; }
+@media (max-width: 880px) { .fe-track { grid-auto-columns: minmax(220px, 70%); } }
 .story { display: grid; gap: 6px; text-decoration: none; }
 .story .ph { aspect-ratio: 9 / 16; min-height: 0; }
 .story .who { display: flex; gap: 6px; align-items: center; font-size: 0.75rem; color: var(--muted); }
@@ -243,21 +246,20 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
 <footer class="site-footer">
   <div class="wrap">
     <div class="foot-cols">
+      <div><h3>Festival 2027</h3><a href="#programme">Programme</a><a href="#venues">Venues</a><a href="#faqs">FAQs</a><a href="#past">Past Festivals</a></div>
+      <div><h3>The Charity</h3><a href="#about">About</a><a href="#contact">Contact</a><a href="#policies">Policies</a></div>
       <div class="stack-s">
-        <h3>Get the festival newsletter</h3>
+        <h3>Get the Festival newsletter</h3>
         <form class="stack-s js-form" id="foot-news">
           <label class="f" for="foot-email">Email address<input id="foot-email" type="email" placeholder="name@example.com"></label>
           <button class="btn primary" type="submit">Sign up</button>
           <span class="form-msg" hidden>Wireframe only. Connect to the newsletter platform.</span>
         </form>
-        <div class="stack-s" style="padding-top:6px;border-top:1px solid var(--line)">
-          <span class="meta">Support free schools and community events.</span>
-          <a class="btn" href="#donate">Donate now</a>
-        </div>
       </div>
-      <div><h3>Festival 2027</h3><a href="#programme">Programme</a><a href="#venues">Venues</a><a href="#faqs">FAQs</a><a href="#past">Past Festivals</a></div>
-      <div><h3>The charity</h3><a href="#about">About</a><a href="#get-involved">Get Involved</a><a href="#donate">Donate</a><a href="#contact">Contact</a></div>
-      <div><h3>Policies</h3><a href="#accessibility">Accessibility</a><a href="#privacy">Privacy Policy</a><a href="#cookies">Cookie Policy</a><a href="#safeguarding">Safeguarding Policy</a></div>
+      <div class="stack-s" style="align-content:start">
+        <div><h3>Get Involved</h3><a href="#volunteer">Volunteer with Us</a><a href="#sponsor">Become a Sponsor</a></div>
+        <a class="btn primary" href="#donate">Donate now</a>
+      </div>
     </div>
     <div class="foot-base">
       <span>Ealing Book Festival is a Charitable Incorporated Organisation registered with the Charity Commission in England and Wales (1205805).</span>
@@ -303,17 +305,17 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
   /* route: hx = Humanitix, venue = venue box office, free = no booking, free-book = free Humanitix registration */
   const EVENTS = [
     { id: 1, title: 'Headline author in conversation', day: DAYS[0], time: '19:30', end: '20:30', venue: 'Univ West London', genre: 'Fiction', age: 'Adult', price: '£15', route: 'hx', status: 'On sale', featured: 1 },
-    { id: 8, title: 'Memoir and life writing', day: DAYS[0], time: '18:00', end: '19:00', venue: 'Pitzhanger Manor', genre: 'Non-fiction', age: 'Adult', price: '£8', route: 'hx', status: 'On sale' },
+    { id: 8, title: 'Memoir and life writing', day: DAYS[0], time: '18:00', end: '19:00', venue: 'Pitzhanger Manor', genre: 'Non-fiction', age: 'Adult', price: '£8', route: 'hx', status: 'On sale', featured: 1 },
     { id: 9, title: 'Nature writing talk', day: DAYS[1], time: '11:00', end: '12:00', venue: 'Pitzhanger Manor', genre: 'Nature', age: 'Adult', price: '£10', route: 'hx', status: 'On sale' },
     { id: 2, title: 'History talk and book signing', day: DAYS[1], time: '18:30', end: '19:30', venue: 'Pitzhanger Manor', genre: 'History', age: 'Adult', price: '£12', route: 'hx', status: 'Few left', featured: 1 },
     { id: 10, title: 'Young adult fiction panel', day: DAYS[2], time: '17:00', end: '18:00', venue: 'Dominion Centre', genre: 'Fiction', age: '12+', price: '£8', route: 'hx', status: 'On sale' },
     { id: 3, title: 'Panel: writing West London', day: DAYS[2], time: '19:00', end: '20:15', venue: 'Questors', genre: 'Non-fiction', age: 'Adult', price: '£10', route: 'venue', status: 'On sale', featured: 1 },
-    { id: 11, title: 'Politics in conversation', day: DAYS[3], time: '19:00', end: '20:00', venue: 'Univ West London', genre: 'Politics', age: 'Adult', price: '£15', route: 'hx', status: 'On sale' },
-    { id: 7, title: 'Crime fiction double bill', day: DAYS[3], time: '20:00', end: '21:30', venue: 'Questors', genre: 'Fiction', age: 'Adult', price: '£12', route: 'hx', status: 'Sold out' },
+    { id: 11, title: 'Politics in conversation', day: DAYS[3], time: '19:00', end: '20:00', venue: 'Univ West London', genre: 'Politics', age: 'Adult', price: '£15', route: 'hx', status: 'On sale', featured: 1 },
+    { id: 7, title: 'Crime fiction double bill', day: DAYS[3], time: '20:00', end: '21:30', venue: 'Questors', genre: 'Fiction', age: 'Adult', price: '£12', route: 'hx', status: 'Sold out', featured: 1 },
     { id: 4, title: 'Family story time', day: DAYS[4], time: '10:30', end: '11:15', venue: 'Dominion Centre', genre: 'Children', age: 'Family', price: 'Free', route: 'free-book', status: 'On sale', featured: 1 },
     { id: 5, title: 'Poetry open mic', day: DAYS[4], time: '16:00', end: '18:00', venue: 'Pitzhanger Manor', genre: 'Poetry', age: 'All ages', price: 'Free', route: 'free', status: '', kind: 'openmic' },
-    { id: 12, title: 'Picture book drawing workshop', day: DAYS[5], time: '11:00', end: '12:00', venue: 'Dominion Centre', genre: 'Children', age: 'Family', price: '£8', route: 'hx', status: 'On sale' },
-    { id: 6, title: 'Closing night event', day: DAYS[5], time: '19:30', end: '20:45', venue: 'Univ West London', genre: 'Fiction', age: 'Adult', price: '£15', route: 'hx', status: 'On sale soon', onsale: '1 March 2027' }
+    { id: 12, title: 'Picture book drawing workshop', day: DAYS[5], time: '11:00', end: '12:00', venue: 'Dominion Centre', genre: 'Children', age: 'Family', price: '£8', route: 'hx', status: 'On sale', featured: 1 },
+    { id: 6, title: 'Closing night event', day: DAYS[5], time: '19:30', end: '20:45', venue: 'Univ West London', genre: 'Fiction', age: 'Adult', price: '£15', route: 'hx', status: 'On sale soon', onsale: '1 March 2027', featured: 1 }
   ];
   const SCHOOL = [
     { id: 101, title: 'Author and book event', day: 'Monday 19 April', time: '10:00', end: '11:00', venue: 'Dominion Centre', genre: 'Schools', age: 'Years 3 to 4', kind: 'school' },
@@ -385,13 +387,13 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       <div class="section-head"><h2>Find us on social media</h2><span class="mono">@EalingBookFestival</span></div>
       <div class="car-track" id="car-track"></div>
       <div class="car-ctrl"><button type="button" id="car-prev" aria-label="Previous stories">Prev</button><div class="dots" id="car-dots"></div><button type="button" id="car-next" aria-label="Next stories">Next</button></div>
-      ${note('Revolving carousel of the latest Instagram Stories. It moves on every 4 seconds and stops on hover or keyboard focus. Stories come from the Instagram API and need a Business or Creator account. Stories expire after 24 hours, so the carousel falls back to recent posts when no Story is live.')}
+      ${note('Revolving carousel of the latest Instagram Stories, two at a time. It moves on every 4 seconds and stops on hover or keyboard focus. Stories come from the Instagram API and need a Business or Creator account. Stories expire after 24 hours, so the carousel falls back to recent posts when no Story is live.')}
     </section>`;
   }
   function drawCarousel() {
     const track = document.getElementById('car-track'); if (!track) return;
     const n = STORIES.length;
-    track.innerHTML = [0, 1, 2].map((k) => {
+    track.innerHTML = [0, 1].map((k) => {
       const s = STORIES[(carIndex + k) % n];
       return `<a class="story" href="#home">${ph('Story ' + s + ' 9:16', 0)}<span class="who"><i></i>ealingbookfest</span></a>`;
     }).join('');
@@ -436,9 +438,8 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
         <section class="stack-s"><h2>Support the festival</h2>${tiles([['Donate', 'donate', 'Gift Aid adds 25p to every £1'], ['Volunteer', 'volunteer', 'Help at the 2027 festival'], ['Become a Sponsor', 'sponsor', 'Packages for local business']])}</section>
         ${partners}</div>`, after: startCarousel };
     }
-    const names = AUTHORS.map((a) => a.name).concat(['Author Name', 'Poet Name', 'Speaker Name', 'Author Name', 'Broadcaster Name']);
     return { title: 'Home (programme live mode)', html: `<div class="stack">
-      ${note('In-season mode. Featured events come from the Event post type with a "Featured" tick box. Editors pick four.')}
+      ${note('In-season mode. Featured events come from the Event post type with a "Featured" tick box.')}
       <section class="halves" style="align-items:center">
         <div class="stack-s"><span class="mono">TUE 27 APRIL TO SUN 2 MAY 2027</span>
           <h1>The 2027 programme is live</h1>
@@ -446,22 +447,28 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
           <div class="row">${btn('See the programme', '#programme', true)}${btn('Plan your visit', '#venues')}</div></div>
         ${ph('Hero image: headline author', 320)}
       </section>
-      <section class="halves">
-        <div class="stack-s"><div class="section-head"><h2>Featured events</h2><a href="#programme">Full programme</a></div>
-          <div class="grid-2x2">${EVENTS.filter((e) => e.featured).map(eventCard).join('')}</div></div>
-        <div class="stack-m">${carouselHTML()}
-          <section class="stack-s"><div class="section-head"><h2>Latest news</h2><a href="#news">All news</a></div>
-            <div class="news-links">${POSTS.slice(0, 3).map(postLink).join('')}</div></section></div>
+      <section class="stack-s" aria-roledescription="carousel" aria-label="Featured events">
+        <div class="section-head"><h2>Featured events</h2>
+          <div class="row"><a href="#programme">Full programme</a><button type="button" class="btn" id="fe-prev" aria-label="Previous events">Prev</button><button type="button" class="btn" id="fe-next" aria-label="Next events">Next</button></div></div>
+        <div class="fe-track" id="fe-track">${EVENTS.filter((e) => e.featured).map(eventCard).join('')}</div>
+        ${note('Full-width carousel of all featured events. Prev and Next scroll one card at a time. Visitors can also swipe or scroll sideways.')}
       </section>
       <section class="panel"><h2>Authors &amp; speakers</h2>
-        <p>${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}, with more names to come.</p>
-        <div>${btn('View all authors', '#authors', true)}</div>
-        ${note('Paragraph of names. Each name can link to its author page. The list comes from the Author post type, so editors only add authors once.')}</section>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
+        <div>${btn('View all authors', '#authors', true)}</div></section>
+      <section class="halves">${carouselHTML()}
+        <section class="stack-s"><div class="section-head"><h2>Latest news</h2><a href="#news">All news</a></div>
+          <div class="news-links">${POSTS.slice(0, 3).map(postLink).join('')}</div></section>
+      </section>
       <section class="stack-s"><h2>More than talks</h2>${tiles([
         ['Schools Programme', 'schools', 'Schools week from Monday 19 April'], ['Community Events', 'community', 'Free events across Ealing'], ["Local Authors' Showcase", 'showcase', 'New local writing']])}</section>
-      <section class="band" style="margin-inline:calc(50% - 50vw)"><div class="wrap grid-2" style="align-items:center">
-        <div class="stack-s"><h2>Festival news in your inbox</h2><p>New events, sell-out warnings and author news.</p></div>${newsletterForm('home-news')}</div></section>
-      ${partners}</div>`, after: startCarousel };
+      ${partners}</div>`, after() {
+        startCarousel();
+        const t = document.getElementById('fe-track');
+        const by = (d) => { const c = t.querySelector('.card'); const w = c ? c.getBoundingClientRect().width + 18 : 300; t.scrollBy({ left: d * w, behavior: reduceMotion ? 'auto' : 'smooth' }); };
+        document.getElementById('fe-prev').addEventListener('click', () => by(-1));
+        document.getElementById('fe-next').addEventListener('click', () => by(1));
+      } };
   }
 
   function festival() {
@@ -790,6 +797,8 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
         <section class="panel"><h3>Send a message</h3><form class="stack-s js-form" id="contact-form"><label class="f" for="c-name">Name<input id="c-name"></label><label class="f" for="c-email">Email<input id="c-email" type="email"></label><label class="f" for="c-topic">Topic<select id="c-topic"><option>General</option><option>Tickets</option><option>Schools</option><option>Press</option><option>Sponsorship</option></select></label><label class="f" for="c-msg">Message<textarea id="c-msg" rows="5"></textarea></label><button class="btn primary" type="submit">Send message</button><span class="form-msg" hidden>Wireframe only. Connect to a form plugin with spam protection.</span></form></section></div>`);
   }
 
+  const policies = () => simple('Policies', 'Festival and charity policies.', [['About', 'about'], ['Policies']],
+    `<div class="list">${[['Accessibility', 'accessibility'], ['Privacy Policy', 'privacy'], ['Cookie Policy', 'cookies'], ['Safeguarding Policy', 'safeguarding']].map(([t, h]) => `<a class="list-row" href="#${h}"><span class="mono">Policy</span><span>${t}</span><span class="chip">Read</span></a>`).join('')}</div>${note('Footer link "Policies" opens this list. Each policy is a WordPress page.')}`);
   const policy = (t) => simple(t, 'Last updated [date].', [[t]], `<div class="stack-s">${lines(6)}${lines(5)}${lines(4)}</div>`);
 
   function sitemap() {
@@ -805,7 +814,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
         ${li('Get Involved', 'get-involved', li('Donate', 'donate') + li('Volunteer', 'volunteer') + li('Open Roles', 'roles'))}</ul></li>
       <li class="top"><a href="#news">News</a><ul>${li('[Blog post]', 'post-1')}</ul></li>
       <li class="top"><a href="#contact">Contact</a></li>
-      <li class="top"><span>Footer</span><ul>${li('Accessibility', 'accessibility')}${li('Privacy Policy', 'privacy')}${li('Cookie Policy', 'cookies')}${li('Safeguarding Policy', 'safeguarding')}</ul></li></ul>`;
+      <li class="top"><span>Footer</span><ul>${li('Policies', 'policies')}${li('Accessibility', 'accessibility')}${li('Privacy Policy', 'privacy')}${li('Cookie Policy', 'cookies')}${li('Safeguarding Policy', 'safeguarding')}</ul></li></ul>`;
     return simple('Sitemap', 'Every page in this wireframe. Select a page to open it.', [['Sitemap']], `<div class="tree">${tree}</div>
       ${note('Example events: 1 Humanitix, 3 venue box office, 4 free with booking, 5 poetry open mic, 6 on sale soon, 7 sold out, 101 schools event.')}
       <div class="row">${[1, 3, 4, 5, 6, 7].map((i) => btn('Event ' + i, '#event-' + i)).join('')}${btn('Event 101', '#school-101')}</div>
@@ -813,7 +822,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
   }
 
   const STATIC = { home, festival, programme, authors, schools, community, showcase, venues, faqs, past, about, team, partners, sponsor, governance,
-    'get-involved': getInvolved, donate, volunteer, roles, news, contact, sitemap,
+    'get-involved': getInvolved, policies, donate, volunteer, roles, news, contact, sitemap,
     accessibility: () => policy('Accessibility'), privacy: () => policy('Privacy Policy'), cookies: () => policy('Cookie Policy'), safeguarding: () => policy('Safeguarding Policy') };
 
   function resolve(key) {
