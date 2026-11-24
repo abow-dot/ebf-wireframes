@@ -432,8 +432,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
   function home() {
     const logoSet = Array.from({ length: 8 }, (_, i) => ph('Logo ' + (i + 1), 64)).join('');
     const partners = `<section class="stack-s" aria-label="Our partners"><div class="section-head"><h2>Our partners</h2><a href="#partners">All partners</a></div>
-      <div class="logo-strip"><div class="logo-track">${logoSet}${logoSet}</div></div>
-      ${note('Full-width logo carousel. It scrolls right in a continuous loop. It stops on hover, and does not move for visitors who set reduced motion. Logos come from the Partner post type.')}</section>`;
+      <div class="logo-strip"><div class="logo-track">${logoSet}${logoSet}</div></div></section>`;
     const newsFollow = `<section class="split-23">
       <section class="stack-s"><div class="section-head"><h2>Latest news</h2><a href="#news">All news</a></div>
         <div class="news-grid">${POSTS.slice(0, 3).map((p) => `<a class="card" href="#post-${p.id}">${ph('Thumbnail', 130)}<h3>${p.title}</h3><span class="meta">${p.date}</span></a>`).join('')}</div>
@@ -481,7 +480,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       </section>
       ${newsFollow}
       <section class="stack-s"><h2>More than talks</h2>${tiles([
-        ['Schools Programme', 'schools', 'Schools week from Monday 19 April'], ['Community Events', 'community', 'Free events across Ealing'], ["Local Authors' Showcase", 'showcase', 'New local writing']])}</section>
+        ['Schools Programme', 'schools', 'Schools week from Monday 19 April'], ["Local Authors' Showcase", 'showcase', 'New local writing']])}</section>
       ${partners}</div>`, after() {
         const t = document.getElementById('fe-track');
         const by = (d) => { const c = t.querySelector('.card'); const w = c ? c.getBoundingClientRect().width + 18 : 300; t.scrollBy({ left: d * w, behavior: reduceMotion ? 'auto' : 'smooth' }); };
@@ -495,7 +494,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       <div class="stack-s">${ph('Hero image: festival timetable', 320)}${note('Timetable format: static graphic.')}</div>
       ${note('Section landing page. The menu label "Festival 2027" changes each year. Last year\'s pages move to Past Festivals.')}
       ${tiles([['Programme', 'programme', 'All events, filter by day, venue, type and price'],
-        ['Schools Programme', 'schools', 'For teachers and pupils'], ['Community Events', 'community', 'Free events across Ealing'],
+        ['Schools Programme', 'schools', 'For teachers and pupils'],
         ["Local Authors' Showcase", 'showcase', 'Apply or attend'], ['Venues', 'venues', 'Four venues, access and travel'],
         ['FAQs', 'faqs', 'Tickets, refunds, access'], ['Past Festivals', 'past', '2024 to 2026']])}</div>` };
   }
@@ -827,7 +826,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       <li class="top"><a href="#home">Home</a> <span class="meta">(coming soon / programme live)</span></li>
       <li class="top"><a href="#festival">Festival 2027</a><ul>
         ${li('Programme', 'programme', li('[Event page] with Humanitix pop-up booking', 'event-1') + li('[Event page] poetry open mic', 'event-5'))}
-        ${li('Schools Programme', 'schools', li('[Schools event page]', 'school-101'))}${li('Community Events (not in menu)', 'community')}${li("Local Authors' Showcase", 'showcase')}${li('Venues', 'venues')}${li('FAQs', 'faqs')}
+        ${li('Schools Programme', 'schools', li('[Schools event page]', 'school-101'))}${li("Local Authors' Showcase", 'showcase')}${li('Venues', 'venues')}${li('FAQs', 'faqs')}
         ${li('Past Festivals', 'past', li('2026', 'past-2026', li('Gallery', 'gallery-2026')) + li('2025', 'past-2025') + li('2024', 'past-2024'))}</ul></li>
       <li class="top"><a href="#about">About</a><ul>
         ${li('Team & Trustees', 'team')}${li('Partners & Sponsors', 'partners', li('Become a Sponsor', 'sponsor'))}${li('Charity Governance', 'governance')}</ul></li>
@@ -841,7 +840,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       ${note('Changes in v3: Authors & Speakers pages removed. Get Involved is a top-level menu. Changes from v1: News has no categories or archive. The separate booking page is gone, because Humanitix checkout opens as a pop-up on the event page.')}`);
   }
 
-  const STATIC = { home, festival, programme, schools, community, showcase, venues, faqs, past, about, team, partners, sponsor, governance,
+  const STATIC = { home, festival, programme, schools, showcase, venues, faqs, past, about, team, partners, sponsor, governance,
     'get-involved': getInvolved, policies, donate, volunteer, roles, news, contact, sitemap,
     accessibility: () => policy('Accessibility'), privacy: () => policy('Privacy Policy'), cookies: () => policy('Cookie Policy'), safeguarding: () => policy('Safeguarding Policy') };
 
