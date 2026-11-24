@@ -218,6 +218,20 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
 @keyframes logos-right { from { transform: translateX(calc(-50% - 6px)); } to { transform: translateX(0); } }
 @media (prefers-reduced-motion: reduce) { .logo-track { animation: none; } }
 
+/* Local Voices */
+.grid-4 { display: grid; gap: 18px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 880px) { .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .grid-4 { grid-template-columns: minmax(0, 1fr); } }
+.lv-toggle { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 10px; border: 1px dashed var(--note); background: var(--note-bg); color: var(--note); }
+.lv-toggle button { font: inherit; font-size: 0.85rem; padding: 4px 10px; border: 1px solid var(--note); background: var(--surface); color: var(--note); cursor: pointer; }
+.lv-toggle button[aria-pressed="true"] { background: var(--note); color: var(--on-note); }
+.form-2 { display: grid; gap: 14px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 520px) { .form-2 { grid-template-columns: minmax(0, 1fr); } }
+fieldset.checks { border: 1px solid var(--line); padding: 10px 14px 14px; margin: 0; display: grid; gap: 8px; }
+fieldset.checks legend { font-size: 0.85rem; color: var(--muted); padding: 0 4px; }
+label.check { display: flex; gap: 10px; align-items: flex-start; font-size: 0.92rem; }
+label.check input { width: auto; margin-top: 4px; }
+
 /* Footer */
 .site-footer { background: var(--surface); border-top: 1px solid var(--line); }
 .site-footer .wrap { padding-block: 32px; display: grid; gap: 24px; }
@@ -262,7 +276,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
 <footer class="site-footer">
   <div class="wrap">
     <div class="foot-cols">
-      <div><h3>Festival 2027</h3><a href="#programme">Programme</a><a href="#showcase">Local Author Showcase</a><a href="#venues">Venues</a><a href="#faqs">FAQs</a></div>
+      <div><h3>Festival 2027</h3><a href="#programme">Programme</a><a href="#las">Local Author Showcase</a><a href="#venues">Venues</a><a href="#faqs">FAQs</a></div>
       <div><h3>The Charity</h3><a href="#about">About</a><a href="#contact">Contact</a><a href="#policies">Policies</a></div>
       <div class="stack-s">
         <h3>Get the Festival newsletter</h3>
@@ -304,7 +318,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
   const NAV = [
     { t: 'Festival 2027', h: 'festival', c: [
       ['Programme', 'programme'], ['Schools Programme', 'schools'],
-      ["Local Authors' Showcase", 'showcase'], ['Venues', 'venues'],
+      ['Local Voices', 'local-voices'], ['Local Author Showcase', 'las', 1], ["Children's Showcase", 'childrens', 1], ['Storytelling and Poetry', 'storytelling', 1], ['Venues', 'venues'],
       ['FAQs', 'faqs'], ['Past Festivals', 'past'] ] },
     { t: 'About', h: 'about', c: [
       ['Team & Trustees', 'team'], ['Partners & Sponsors', 'partners'], ['Become a Sponsor', 'sponsor', 1],
@@ -329,8 +343,11 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
     { id: 3, title: 'Panel: writing West London', day: DAYS[2], time: '19:00', end: '20:15', venue: 'Questors', type: 'Non-fiction', age: 'Adult', price: '£10', route: 'venue', status: 'On sale', featured: 1 },
     { id: 11, title: 'Politics in conversation', day: DAYS[3], time: '19:00', end: '20:00', venue: 'Univ West London', type: 'Non-fiction', age: 'Adult', price: '£15', route: 'hx', status: 'On sale', featured: 1 },
     { id: 7, title: 'Crime fiction double bill', day: DAYS[3], time: '20:00', end: '21:30', venue: 'Questors', type: 'Fiction', age: 'Adult', price: '£12', route: 'hx', status: 'Sold out' },
-    { id: 4, title: 'Family story time', day: DAYS[4], time: '10:30', end: '11:15', venue: 'Dominion Centre', type: 'Children', age: 'Family', price: 'Free', route: 'free-book', status: 'On sale', featured: 1 },
-    { id: 5, title: 'Poetry open mic', day: DAYS[4], time: '16:00', end: '18:00', venue: 'Pitzhanger Manor', type: 'Workshops', age: 'All ages', price: 'Free', route: 'free', status: '', kind: 'openmic' },
+    { id: 4, title: 'Family story time', day: DAYS[4], time: '10:30', end: '11:15', venue: 'Dominion Centre', type: 'Children', age: 'Family', price: 'Free', route: 'free-book', status: 'On sale', featured: 1, strand: 'childrens' },
+    { id: 5, title: 'Poetry open mic', day: DAYS[4], time: '16:00', end: '18:00', venue: 'Pitzhanger Manor', type: 'Workshops', age: 'All ages', price: 'Free', route: 'free', status: '', kind: 'openmic', strand: 'storytelling' },
+    { id: 13, title: 'Local Author Showcase', day: DAYS[3], time: '18:00', end: '20:00', venue: 'Pitzhanger Manor', type: 'Fiction', age: 'Adult', price: '£8', route: 'hx', status: 'On sale', strand: 'las', kind: 'showcase' },
+    { id: 14, title: "Children's Showcase: stories and songs", day: DAYS[5], time: '14:00', end: '15:00', venue: 'Dominion Centre', type: 'Children', age: 'Family', price: 'Free', route: 'free-book', status: 'On sale', strand: 'childrens' },
+    { id: 15, title: 'Storytelling evening', day: DAYS[4], time: '19:00', end: '20:30', venue: 'Pitzhanger Manor', type: 'Fiction', age: 'Adult', price: '£8', route: 'hx', status: 'On sale', strand: 'storytelling' },
     { id: 12, title: 'Picture book drawing workshop', day: DAYS[5], time: '11:00', end: '12:00', venue: 'Dominion Centre', type: 'Workshops', age: 'Family', price: '£8', route: 'hx', status: 'On sale' },
     { id: 6, title: 'Closing night event', day: DAYS[5], time: '19:30', end: '20:45', venue: 'Univ West London', type: 'Fiction', age: 'Adult', price: '£15', route: 'hx', status: 'On sale soon', onsale: '1 March 2027', featured: 1 }
   ];
@@ -392,7 +409,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       <span class="mono">${shortDay(e.day)} · ${e.time} · ${e.venue}</span>
       <h3>${e.title}</h3>
       <span class="meta">${e.type} · ${e.age} · ${price}</span>
-      ${chip ? `<span class="row">${chip}</span>` : ''}</a>`;
+      ${chip || e.strand ? `<span class="row">${chip}${e.strand ? '<span class="chip">Local Voices</span>' : ''}</span>` : ''}</a>`;
   }
   const authorCard = (a) => `<a class="card" href="#author-${a.id}">${ph('Author photo 1:1', 200)}<h3>${a.name}</h3><span class="meta">${a.role}</span></a>`;
   const postLink = (p) => `<a href="#post-${p.id}"><strong>${p.title}</strong><span class="meta">${p.date}</span></a>`;
@@ -480,7 +497,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       </section>
       ${newsFollow}
       <section class="stack-s"><h2>More than talks</h2>${tiles([
-        ['Schools Programme', 'schools', 'Schools week from Monday 19 April'], ["Local Authors' Showcase", 'showcase', 'New local writing']])}</section>
+        ['Schools Programme', 'schools', 'Schools week from Monday 19 April'], ['Local Voices', 'local-voices', 'Showcases for local writers, storytellers and poets']])}</section>
       ${partners}</div>`, after() {
         const t = document.getElementById('fe-track');
         const by = (d) => { const c = t.querySelector('.card'); const w = c ? c.getBoundingClientRect().width + 18 : 300; t.scrollBy({ left: d * w, behavior: reduceMotion ? 'auto' : 'smooth' }); };
@@ -495,7 +512,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       ${note('Section landing page. The menu label "Festival 2027" changes each year. Last year\'s pages move to Past Festivals.')}
       ${tiles([['Programme', 'programme', 'All events, filter by day, venue, type and price'],
         ['Schools Programme', 'schools', 'For teachers and pupils'],
-        ["Local Authors' Showcase", 'showcase', 'Apply or attend'], ['Venues', 'venues', 'Four venues, access and travel'],
+        ['Local Voices', 'local-voices', "Local Author Showcase, Children's Showcase, Storytelling and Poetry"], ['Venues', 'venues', 'Four venues, access and travel'],
         ['FAQs', 'faqs', 'Tickets, refunds, access'], ['Past Festivals', 'past', '2024 to 2026']])}</div>` };
   }
 
@@ -557,11 +574,21 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
 
   function eventPage(e) {
     const isOpen = e.kind === 'openmic';
+    const isShow = e.kind === 'showcase';
     const isSchool = e.kind === 'school';
     const auths = AUTHORS.filter((a) => a.events.includes(e.id));
     const priceLine = isSchool ? 'By invitation' : (e.price === 'Free' ? 'Free' : 'From ' + e.price);
     const crumbArr = isSchool ? [['Festival 2027', 'festival'], ['Schools Programme', 'schools'], [e.title]] : [['Festival 2027', 'festival'], ['Programme', 'programme'], [e.title]];
-    const about = isOpen
+    const showTimes = Array.from({ length: 13 }, (_, i) => { const m = 10 + i * 8; return `${18 + Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')}`; });
+    const about = isShow
+      ? `<div class="stack-s"><h2>About this event</h2>
+          <p>Thirteen local authors each read from their work for up to five minutes, in an open mic format. Host Name introduces each reader.</p>
+          <p>Books by the authors are on sale at the venue.</p>${lines(2)}</div>
+        <div class="stack-s"><h2>Performers</h2><div class="agenda">
+          ${showTimes.map((t, i) => `<div><span class="mono">${t}</span><span>Performer Name ${i + 1}</span></div>`).join('')}
+        </div><a href="#las">Meet the performers on the Local Author Showcase page</a>
+        ${note('The list comes from the Showcase performer posts linked to this event. Editors enter each performer once.')}</div>`
+      : isOpen
       ? `<div class="stack-s"><h2>About this event</h2>
           <p>Bring a poem, or come to listen. Poets of all ages and all levels of experience can read at the festival open mic.</p>
           <p>Each reader has up to five minutes. Sign up on the day at the welcome desk from 15:30. There are 16 reading slots.</p>
@@ -573,10 +600,10 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       : `<div class="stack-s"><h2>About this event</h2>${lines(4)}
           <figure class="pullquote" style="margin:6px 0"><q>A short, striking line from the author or a review sits here.</q><span>Source name</span></figure>
           ${lines(5)}${note('Pull quote: optional fields for quote text and source.')}</div>`;
-    const appearing = isOpen ? '' : `<div class="stack-s"><h2>In Conversation With</h2>
+    const appearing = (isOpen || isShow) ? '' : `<div class="stack-s"><h2>In Conversation With</h2>
       <div class="chair">${ph('Chair photo', 140)}<h3>Chair Name</h3><p>Short paragraph about the chair: their role, their own books or programmes, and why they suit this conversation. Two or three sentences.</p></div>
       ${note('Chair fields on the Event: name, small photo, short paragraph. Author pages are removed, so information about the author goes in the event description.')}</div>`;
-    const banner = isOpen ? ph('Narrow banner image', 90) : ph('Event banner image', 220);
+    const banner = (isOpen || isShow) ? ph('Narrow banner image', 90) : ph('Event banner image', 220);
     return { title: (isSchool ? 'Schools event: ' : 'Event: ') + e.title, html: `<div class="stack">
       <div class="stack-s">${crumbs(crumbArr)}${banner}</div>
       <div class="split">
@@ -588,7 +615,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
               <div><b>Where</b><span>${e.venue}, [street], Ealing</span><a href="#venues" class="meta">Get directions</a></div>
               <div><b>Price</b><span>${priceLine}</span></div>
             </div>
-            <div class="row"><span class="chip">${e.type}</span><span class="chip">${e.age}</span></div>
+            <div class="row"><span class="chip">${e.type}</span><span class="chip">${e.age}</span>${e.strand ? `<a class="chip" href="#${e.strand}">Local Voices: ${STRANDS[e.strand].name}</a>` : ''}</div>
           </div>
           ${about}
           ${appearing}
@@ -668,14 +695,71 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
        <div class="grid">${EVENTS.filter((e) => e.price === 'Free').concat(EVENTS.filter((e) => e.price === 'Free')).map(eventCard).join('')}</div>`);
   }
 
-  function showcase() {
-    return simple("Local Authors' Showcase", 'A stage for authors who live or work in Ealing. In 2026, more than 70 authors applied.', [['Festival 2027', 'festival'], ["Local Authors' Showcase"]],
-      `<div class="split"><div class="stack">${ph('Photo: showcase event', 280)}
-        <div class="stack-s"><h2>How it works</h2>${lines(4)}</div>
-        <div class="stack-s"><h2>2027 showcase authors</h2><div class="grid">${AUTHORS.slice(0, 4).map((a) => `<div class="card">${ph('Author photo 1:1', 200)}<h3>${a.name}</h3><span class="meta">${a.role}</span></div>`).join('')}</div></div></div>
-        <aside class="panel"><h3>Applications</h3><dl class="kv"><dt>Opens</dt><dd>[date]</dd><dt>Closes</dt><dd>[date]</dd></dl>${btn('Apply now', '#showcase', true)}
-          ${note('Two states: "Applications open" with the form link, and "Meet the authors" once the line-up is set.')}</aside></div>`);
+  const STRANDS = {
+    las: { name: 'Local Author Showcase', short: 'One evening of local authors reading from their work, in an open mic format.', perf: 13, genres: ['Fiction', 'Memoir', 'Crime fiction', 'Poetry', 'Non-fiction', 'Historical fiction', 'Short stories'] },
+    childrens: { name: "Children's Showcase", short: 'Adults who write for children read and perform their stories for young audiences and families.', perf: 7, genres: ['Picture books', 'Middle grade', 'Young adult', 'Poetry for children'] },
+    storytelling: { name: 'Storytelling and Poetry', short: 'Local storytellers and poets perform told stories, spoken word and poems.', perf: 9, genres: ['Poetry', 'Spoken word', 'Storytelling', 'Folk tales'] }
+  };
+  let lvMode = 'open';
+  const lvToggle = () => `<div class="lv-toggle" role="group" aria-label="Local Voices state"><span class="mono">WIREFRAME STATE</span>
+    <button type="button" data-lv="open" aria-pressed="${lvMode === 'open'}">Applications open</button>
+    <button type="button" data-lv="lineup" aria-pressed="${lvMode === 'lineup'}">Line-up announced</button></div>`;
+  function lvAfter() {
+    document.querySelectorAll('[data-lv]').forEach((b) => b.addEventListener('click', () => {
+      lvMode = b.dataset.lv; try { localStorage.setItem('ebf-lv', lvMode); } catch (e) {} render();
+    }));
   }
+  function applyForm(pre) {
+    const opts = Object.entries(STRANDS).map(([k, st]) => `<label class="check" for="ap-${k}"><input type="checkbox" id="ap-${k}"${k === pre ? ' checked' : ''}> ${st.name}</label>`).join('');
+    return `<section class="panel" id="apply-form"><h2>Apply for the 2027 Festival</h2>
+      <form class="stack-s js-form" id="apply">
+        <div class="form-2"><label class="f" for="ap-first">First Name<input id="ap-first" autocomplete="given-name"></label><label class="f" for="ap-last">Surname<input id="ap-last" autocomplete="family-name"></label></div>
+        <label class="f" for="ap-email">Email address<input id="ap-email" type="email" autocomplete="email"></label>
+        <fieldset class="checks"><legend>Which event are you applying for? Select all that apply.</legend>${opts}</fieldset>
+        <label class="f" for="ap-work">Tell us a bit about your work<textarea id="ap-work" rows="6"></textarea></label>
+        <label class="f" for="ap-ealing">Tell us about your connection to Ealing<textarea id="ap-ealing" rows="6"></textarea></label>
+        <label class="check" for="ap-consent"><input type="checkbox" id="ap-consent"><span>I agree that Ealing Book Festival can keep my details to assess my application. Read our <a href="#privacy">Privacy Policy</a>.</span></label>
+        <div><button class="btn primary" type="submit">Submit</button></div>
+        <span class="form-msg" hidden>Wireframe only. Connect to a form plugin with spam protection.</span>
+      </form>
+      ${note("One form for all three strands. On a strand page, that strand's box is ticked already. Email address and the consent box are additions to the brief: confirm or remove them. Entries go to one list that the team can filter by strand.")}</section>`;
+  }
+  function perfCards(k, n) {
+    const g = STRANDS[k].genres;
+    return Array.from({ length: n }, (_, i) => `<div class="card">${ph('Photo 1:1', 180)}<h3>Performer Name ${i + 1}</h3><span class="chip" style="justify-self:start">${g[i % g.length]}</span><p class="meta">Two or three sentences about their work: what they write, their latest book or project, and what they will read.</p></div>`).join('');
+  }
+  function localVoices() {
+    const open = lvMode === 'open';
+    const tilesHtml = `<div class="grid">${Object.entries(STRANDS).map(([k, st]) => `<a class="card tile-link" href="#${k}">${ph(st.name, 150)}<h3>${st.name}</h3><span class="meta">${st.short}</span><span class="btn" style="justify-self:start">${open ? 'How to apply' : 'Meet the performers'}</span></a>`).join('')}</div>`;
+    const body = open
+      ? `${tilesHtml}
+        <section class="stack-s"><h2>How it works</h2><p>Local Voices gives a stage to writers, storytellers and poets who live or work in Ealing. In 2026, more than 70 authors applied for the Local Authors' Showcase.</p>
+          <p>Applications for all three strands are open from [date] to [date]. You can apply for more than one strand on the same form. We tell all applicants the outcome by [date].</p></section>
+        ${applyForm('')}`
+      : `${tilesHtml}
+        <section class="stack-s"><h2>Local Voices events</h2><div class="grid">${EVENTS.filter((e) => e.strand).map(eventCard).join('')}</div>
+          ${note('Events with a value in the "Strand" field. They also appear on the main Programme.')}</section>`;
+    return { title: 'Local Voices' + (open ? ' (applications open)' : ' (line-up)'), html: `<div class="stack">${head('Local Voices', 'Three festival strands for local writers, storytellers and poets.', [['Festival 2027', 'festival'], ['Local Voices']])}
+      ${lvToggle()}${note('Hub page. One setting switches the hub and all three strand pages between "Applications open" and "Line-up announced", because the three strands open and close on the same dates.')}
+      ${body}</div>`, after: lvAfter };
+  }
+  function strandPage(k) {
+    const st = STRANDS[k];
+    const evs = EVENTS.filter((e) => e.strand === k);
+    const open = lvMode === 'open';
+    const body = open
+      ? `${ph('Photo: ' + st.name, 260)}
+        <section class="stack-s"><h2>How it works</h2><p>Successful applicants perform at the ${st.name} during the festival. Each performer has a short slot, and the festival team plans the running order.</p>
+          <p>Applications for all three Local Voices strands are open from [date] to [date]. Anyone who lives or works in Ealing can apply. We tell all applicants the outcome by [date].</p>${lines(2)}</section>
+        ${applyForm(k)}`
+      : `${ph('Photo: ' + st.name, 260)}
+        <section class="stack-s"><h2>${evs.length > 1 ? 'Events' : 'The event'}</h2><div class="grid">${evs.map(eventCard).join('')}</div></section>
+        <section class="stack-s"><div class="section-head"><h2>2027 performers</h2><span class="meta">${st.perf} performers</span></div>
+          <div class="grid-4">${perfCards(k, st.perf)}</div>
+          ${note('Showcase performer post type: photo, name, genre, short paragraph, strand, year and event. Performers have no pages of their own. The application form is hidden in this state.')}</section>`;
+    return { title: st.name + (open ? ' (applications open)' : ' (line-up)'), html: `<div class="stack">${head(st.name, st.short, [['Festival 2027', 'festival'], ['Local Voices', 'local-voices'], [st.name]])}${lvToggle()}${body}</div>`, after: lvAfter };
+  }
+
 
   function venues() {
     return simple('Venues', 'The 2027 festival takes place at four venues in Ealing.', [['Festival 2027', 'festival'], ['Venues']],
@@ -826,7 +910,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       <li class="top"><a href="#home">Home</a> <span class="meta">(coming soon / programme live)</span></li>
       <li class="top"><a href="#festival">Festival 2027</a><ul>
         ${li('Programme', 'programme', li('[Event page] with Humanitix pop-up booking', 'event-1') + li('[Event page] poetry open mic', 'event-5'))}
-        ${li('Schools Programme', 'schools', li('[Schools event page]', 'school-101'))}${li("Local Authors' Showcase", 'showcase')}${li('Venues', 'venues')}${li('FAQs', 'faqs')}
+        ${li('Schools Programme', 'schools', li('[Schools event page]', 'school-101'))}${li('Local Voices', 'local-voices', li('Local Author Showcase', 'las', li('[Event page] Local Author Showcase night', 'event-13')) + li("Children's Showcase", 'childrens') + li('Storytelling and Poetry', 'storytelling'))}${li('Venues', 'venues')}${li('FAQs', 'faqs')}
         ${li('Past Festivals', 'past', li('2026', 'past-2026', li('Gallery', 'gallery-2026')) + li('2025', 'past-2025') + li('2024', 'past-2024'))}</ul></li>
       <li class="top"><a href="#about">About</a><ul>
         ${li('Team & Trustees', 'team')}${li('Partners & Sponsors', 'partners', li('Become a Sponsor', 'sponsor'))}${li('Charity Governance', 'governance')}</ul></li>
@@ -840,7 +924,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
       ${note('Changes in v3: Authors & Speakers pages removed. Get Involved is a top-level menu. Changes from v1: News has no categories or archive. The separate booking page is gone, because Humanitix checkout opens as a pop-up on the event page.')}`);
   }
 
-  const STATIC = { home, festival, programme, schools, showcase, venues, faqs, past, about, team, partners, sponsor, governance,
+  const STATIC = { home, festival, programme, schools, 'local-voices': localVoices, las: () => strandPage('las'), childrens: () => strandPage('childrens'), storytelling: () => strandPage('storytelling'), showcase: () => strandPage('las'), venues, faqs, past, about, team, partners, sponsor, governance,
     'get-involved': getInvolved, policies, donate, volunteer, roles, news, contact, sitemap,
     accessibility: () => policy('Accessibility'), privacy: () => policy('Privacy Policy'), cookies: () => policy('Cookie Policy'), safeguarding: () => policy('Safeguarding Policy') };
 
@@ -897,6 +981,7 @@ select, input, textarea { font: inherit; padding: 8px 10px; border: 1px solid va
     document.querySelectorAll('#mode-toggle button').forEach((x) => x.setAttribute('aria-pressed', x === b));
     if (!location.hash || location.hash === '#home') render(); else location.hash = 'home';
   }));
+  try { const v = localStorage.getItem('ebf-lv'); if (v === 'open' || v === 'lineup') lvMode = v; } catch (e) {}
   try { const m = localStorage.getItem('ebf-mode'); if (m === 'soon' || m === 'live') { homeMode = m; document.querySelectorAll('#mode-toggle button').forEach((x) => x.setAttribute('aria-pressed', x.dataset.mode === m)); } } catch (e) {}
 
   /* Router */
