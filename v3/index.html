@@ -249,6 +249,8 @@ label.check input { width: auto; margin-top: 4px; }
 .chair-block h3 { margin-bottom: 6px; }
 .chair-block p { font-size: 0.92rem; }
 
+.ev-banner { min-height: 0; aspect-ratio: 16 / 5; width: 100%; }
+
 /* Footer */
 .site-footer { background: var(--surface); border-top: 1px solid var(--line); }
 .site-footer .wrap { padding-block: 32px; display: grid; gap: 24px; }
@@ -619,10 +621,13 @@ label.check input { width: auto; margin-top: 4px; }
           ${lines(5)}${lines(4)}${lines(5)}</div>`;
     const appearing = (isOpen || isShow) ? '' : `<div class="stack-s"><h2>In Conversation With</h2>
       <div class="chair-block">${ph('Chair photo', 140)}<h3>Chair Name</h3><p>Short paragraph about the chair: their role, their own books or programmes, and why they suit this conversation. The text wraps around the photo when it runs longer than the photo. Two or three sentences are enough for most chairs.</p></div></div>`;
-    return { title: (isSchool ? 'Schools event: ' : 'Event: ') + e.title, html: `<div class="stack">
-      <div class="stack-s">${crumbs(crumbArr)}
-        <div class="event-hero">${ph((isOpen || isShow) ? 'Event image' : 'Event image: author and book', 260)}${bookingPanel(e)}</div></div>
+    const heroLabel = (isOpen || isShow) ? 'Event image' : 'Event image: author and book';
+    const topBlock = `<div class="stack-s">${crumbs(crumbArr)}</div>
+      <div class="split">
         <div class="stack event-main">
+          <div class="ph ev-banner"><span>Banner image: ${heroLabel.replace('Event image: ', '')}, landscape</span></div>`;
+    return { title: (isSchool ? 'Schools event: ' : 'Event: ') + e.title , html: `<div class="stack">
+      ${topBlock}
           <div class="event-top">
             <h1>${e.title}</h1>
             <div class="event-facts">
@@ -639,6 +644,7 @@ label.check input { width: auto; margin-top: 4px; }
           ${isSchool ? '' : `<div class="stack-s"><h2>Refund policy</h2><p>Refunds are available up to [n] days before the event (to confirm).</p></div>`}
           <div class="row"><span class="chip">Share</span><span class="chip">Add to calendar</span></div>
         </div>
+      ${bookingPanel(e)}</div>
       ${isSchool ? '' : `<section class="stack-s"><h2>You might also like</h2><div class="grid">${EVENTS.filter((x) => x.id !== e.id).slice(0, 3).map(eventCard).join('')}</div></section>`}</div>`,
       after() {
         document.querySelectorAll('.js-book').forEach((b) => b.addEventListener('click', () => openModal(e, b)));
@@ -734,7 +740,7 @@ label.check input { width: auto; margin-top: 4px; }
   }
   function perfCards(k, n) {
     const g = STRANDS[k].genres;
-    return Array.from({ length: n }, (_, i) => `<div class="card">${ph('Photo 1:1', 180)}<h3>Author Name ${i + 1}</h3>${k === 'las' ? '' : `<span class="chip" style="justify-self:start">${g[i % g.length]}</span>`}<p class="meta">Two or three sentences about their work: what they write, their latest book or project, and what they will read.</p></div>`).join('');
+    return Array.from({ length: n }, (_, i) => `<div class="card">${ph('Photo 1:1', 180)}<h3>Author Name ${i + 1}</h3><p class="meta">Two or three sentences about their work: what they write, their latest book or project, and what they will read.</p></div>`).join('');
   }
   function localVoices() {
     const open = lvMode === 'open';
